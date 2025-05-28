@@ -1,8 +1,8 @@
-# Менеджер музичних треків - Alex Taylor Danko
+# Music Track Manager - Alex Taylor Danko
 https://www.linkedin.com/in/dankozz1/
 
-## Технічний стек
-- Vue 3 з Composition API та синтаксисом `<script setup>`
+## Tech Stack
+- Vue 3 with Composition API and `<script setup>` syntax
 - TypeScript
 - Vite
 - Vuetify 3
@@ -10,33 +10,34 @@ https://www.linkedin.com/in/dankozz1/
 - Pinia
 - Axios
 - SCSS
-- ESLint та Prettier
+- ESLint and Prettier
 - vue/test-utils + vitest
 - My brain + AI to speed up time
 
-## Запуск проекту
+## Project Setup
 
-1. Встановити залежності:
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Запустити проект:
+2. Run the project:
    ```bash
    npm start
    ```
 
-Після запуску додаток буде доступний за адресою: http://localhost:3000
+After running, the application will be available at: http://localhost:3000
 
+## Running Tests
 
-## Запуск тестів
-
-Для запуску всіх тестів:
+To run all tests:
 
 ```bash
 npm test
 ```
 
+# Music Manager Architecture Decision Records (ADR)
 
-# Архітектурні рішення Music Manager (ADR)
-[ADR.ua.md](./docs/ADR/ua/ADR.ua.md) — Впровадження ADR. Всі архітектурні рішення 
+## Available Languages:
+- 🇺🇦 [UA -> README.md](./docs/ADR/ua/README.md) — Ukrainian version. All architectural decisions
+- 🇺🇸 [EN -> README.md](./docs/ADR/en/README.md) — English version. All architectural decisions 
