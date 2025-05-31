@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, type ComputedRef } from 'vue';
-import { useTracksStore } from '@/stores/tracks';
+import { useTrackStore } from '../store/trackStore';
+import { usePlayerStore } from '../../player/store/playerStore';
 import { useVisiblePool } from '@/stores/visiblePool';
-import { type Track } from '@/services/tracks';
+import type { Track } from '../types';
 
 interface TrackListItemProps {
   track: Track;
@@ -15,30 +16,39 @@ const props = withDefaults(defineProps<TrackListItemProps>(), {
   selected: false,
 });
 
-const tracksStore = useTracksStore();
+const trackStore = useTrackStore();
+const playerStore = usePlayerStore();
 const visibleStore = useVisiblePool();
 
 const isPlaying: ComputedRef<boolean> = computed(() => {
-  return (
-    !!tracksStore.currentTrack?.id &&
-    tracksStore.currentTrack.id === props.track.id &&
-    tracksStore.hasAudioPlaying
-  );
+  return playerStore.isTrackPlaying(props.track.id);
+});
+
+const isPaused: ComputedRef<boolean> = computed(() => {
+  return playerStore.isTrackPaused(props.track.id);
 });
 
 const isSelected = computed({
   get: () => props.selected,
   set: () => {
-    tracksStore.toggleTrackSelection(props.track.id);
+    trackStore.toggleTrackSelection(props.track.id);
   },
 });
 
-const playTrack = (): void => {
-  tracksStore.playTrack(props.track);
+const playTrack = async (): Promise<void> => {
+  try {
+    if (isPaused.value) {
+      await playerStore.resumeTrack();
+    } else {
+      await playerStore.playTrack(props.track);
+    }
+  } catch (error) {
+    console.error('Failed to play track:', error);
+  }
 };
 
-const stopTrack = (): void => {
-  tracksStore.stopTrack();
+const pauseTrack = (): void => {
+  playerStore.pauseTrack();
 };
 
 const handleEdit = (): void => {
@@ -163,7 +173,7 @@ const handleDelete = (): void => {
             icon="mdi-pause"
             variant="text"
             size="small"
-            @click="stopTrack"
+            @click="pauseTrack"
           />
           <div
             v-if="isPlaying"

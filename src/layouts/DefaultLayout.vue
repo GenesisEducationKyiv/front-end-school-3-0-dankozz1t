@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GlobalAudioPlayer from '@/components/Tracks/GlobalAudioPlayer.vue';
+import GlobalAudioPlayer from '@/modules/player/components/GlobalAudioPlayer.vue';
 </script>
 
 <template>

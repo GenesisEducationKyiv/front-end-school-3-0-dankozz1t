@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import AppNotification from '@/components/Base/AppNotification.vue';
+import AppNotification from '@/shared/components/AppNotification.vue';
+import AppLayout from '@/shared/components/AppLayout.vue';
 import { useVisiblePool } from '@/stores/visiblePool';
 import { storeToRefs } from 'pinia';
 
@@ -8,23 +9,31 @@ const { visiblePool } = storeToRefs(visibleStore);
 </script>
 
 <template>
-  <v-app>
+  <AppLayout>
     <router-view />
 
     <AppNotification />
 
+    <!-- Dynamic modals and overlays -->
     <component
       :is="item.component"
       v-for="item in visiblePool"
       :key="item.name"
       v-bind="item?.data"
     />
-  </v-app>
+  </AppLayout>
 </template>
 
 <style>
+/* Global styles */
 .v-main {
   min-height: 100vh;
-  padding-bottom: 80px; /* Space for the global audio player */
+}
+
+/* Ensure proper spacing for mobile */
+@media (max-width: 960px) {
+  .v-main {
+    padding-bottom: 80px;
+  }
 }
 </style>
