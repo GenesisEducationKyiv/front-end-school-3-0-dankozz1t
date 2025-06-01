@@ -13,7 +13,6 @@ onMounted(async () => {
   await trackStore.fetchTracks();
 });
 
-// Watch for pagination changes and refetch tracks
 watch(
   () => trackStore.currentPage,
   async () => {

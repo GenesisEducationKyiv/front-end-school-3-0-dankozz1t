@@ -6,14 +6,9 @@ import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import { useGenresStore } from '@/shared/modules/genres/store/genres';
 import { type Track, type TrackFormData } from '@/modules/track/types';
 
-const props = withDefaults(
-  defineProps<{
-    track?: Track | null;
-  }>(),
-  {
-    track: null,
-  }
-);
+const props = defineProps<{
+  track: Track | null;
+}>();
 
 const modalsStore = useModalsPool();
 const trackStore = useTrackStore();

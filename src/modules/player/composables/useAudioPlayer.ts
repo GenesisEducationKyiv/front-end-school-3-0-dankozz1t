@@ -2,10 +2,6 @@ import { ref, watch, type Ref } from 'vue';
 import type { Track } from '../../track/types';
 import type { PlayerEvents } from '../types';
 
-/**
- * Composable for audio player functionality
- * Handles all audio playback logic in a pure functional way
- */
 export function useAudioPlayer(events?: PlayerEvents) {
   // === STATE ===
   const currentTrack = ref<Track | null>(null);
@@ -18,9 +14,7 @@ export function useAudioPlayer(events?: PlayerEvents) {
   const isPaused = ref<boolean>(false);
 
   // === AUDIO SETUP ===
-  /**
-   * Sets up audio player event listeners
-   */
+
   const setupAudioPlayer = (audio: HTMLAudioElement): void => {
     audio.volume = volume.value / 100;
 
@@ -77,9 +71,6 @@ export function useAudioPlayer(events?: PlayerEvents) {
   };
 
   // === PLAYER METHODS ===
-  /**
-   * Play an audio track
-   */
   async function playTrack(track: Track): Promise<void> {
     // If another track is playing, stop it first
     if (currentAudio.value) {
@@ -109,9 +100,6 @@ export function useAudioPlayer(events?: PlayerEvents) {
     }
   }
 
-  /**
-   * Resume playback of the current track
-   */
   async function resumeTrack(): Promise<void> {
     if (currentAudio.value && isPaused.value) {
       await currentAudio.value.play();
@@ -121,18 +109,12 @@ export function useAudioPlayer(events?: PlayerEvents) {
     }
   }
 
-  /**
-   * Pause the currently playing track
-   */
   function pauseTrack(): void {
     if (currentAudio.value && isPlaying.value) {
       currentAudio.value.pause();
     }
   }
 
-  /**
-   * Stop the currently playing track
-   */
   function stopTrack(): void {
     if (currentAudio.value) {
       currentAudio.value.pause();
@@ -146,39 +128,24 @@ export function useAudioPlayer(events?: PlayerEvents) {
     loading.value = false;
   }
 
-  /**
-   * Set the current playback time
-   */
   function setCurrentTime(time: number): void {
     if (currentAudio.value) {
       currentAudio.value.currentTime = time;
     }
   }
 
-  /**
-   * Set the volume (0-100)
-   */
   function setVolume(newVolume: number): void {
     volume.value = Math.max(0, Math.min(100, newVolume));
   }
 
-  /**
-   * Check if a specific track is currently playing
-   */
   function isTrackPlaying(trackId: string): boolean {
     return !!currentTrack.value && currentTrack.value.id === trackId && isPlaying.value;
   }
 
-  /**
-   * Check if a specific track is currently paused
-   */
   function isTrackPaused(trackId: string): boolean {
     return !!currentTrack.value && currentTrack.value.id === trackId && isPaused.value;
   }
 
-  /**
-   * Check if a specific track is currently loaded (playing or paused)
-   */
   function isTrackLoaded(trackId: string): boolean {
     return !!currentTrack.value && currentTrack.value.id === trackId;
   }

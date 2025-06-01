@@ -7,13 +7,11 @@ const trackStore = useTrackStore();
 const genresStore = useGenresStore();
 
 onMounted(async () => {
-  // Fetch available genres for filtering
   if (genresStore.genres.length === 0) {
     await genresStore.fetchGenres();
   }
 });
 
-// Get unique artists from current tracks for filtering
 const availableArtists = computed(() => {
   const artists = new Set<string>();
   trackStore.tracks.forEach(track => artists.add(track.artist));

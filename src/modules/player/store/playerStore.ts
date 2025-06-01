@@ -1,12 +1,8 @@
-import { defineStore } from 'pinia';
 import { computed, type ComputedRef } from 'vue';
-import { useAudioPlayer } from '../composables/useAudioPlayer';
-import type { Track } from '../../track/types';
+import { defineStore } from 'pinia';
+import { useAudioPlayer } from '@/modules/player/composables/useAudioPlayer';
+import type { Track } from '@/modules/track/types';
 
-/**
- * Player store - manages global audio player state
- * Uses the audio player composable for all functionality
- */
 export const usePlayerStore = defineStore('player', () => {
   // === COMPOSABLE ===
   const audioPlayer = useAudioPlayer({
@@ -38,37 +34,23 @@ export const usePlayerStore = defineStore('player', () => {
   });
 
   // === ACTIONS ===
-  /**
-   * Play a track
-   */
+
   async function playTrack(track: Track): Promise<void> {
     await audioPlayer.playTrack(track);
   }
 
-  /**
-   * Resume the current track
-   */
   async function resumeTrack(): Promise<void> {
     await audioPlayer.resumeTrack();
   }
 
-  /**
-   * Pause the current track
-   */
   function pauseTrack(): void {
     audioPlayer.pauseTrack();
   }
 
-  /**
-   * Stop the current track
-   */
   function stopTrack(): void {
     audioPlayer.stopTrack();
   }
 
-  /**
-   * Toggle play/pause for the current track
-   */
   async function togglePlayPause(): Promise<void> {
     if (audioPlayer.isPlaying.value) {
       pauseTrack();
@@ -77,16 +59,10 @@ export const usePlayerStore = defineStore('player', () => {
     }
   }
 
-  /**
-   * Seek to a specific time
-   */
   function seekTo(time: number): void {
     audioPlayer.setCurrentTime(time);
   }
 
-  /**
-   * Set volume (0-100)
-   */
   function setVolume(volume: number): void {
     audioPlayer.setVolume(volume);
   }

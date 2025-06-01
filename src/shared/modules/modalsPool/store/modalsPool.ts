@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
 import {
-  computed,
   defineAsyncComponent,
-  ref,
   shallowRef,
+  computed,
   watch,
+  ref,
   type Component,
   type ShallowRef,
 } from 'vue';

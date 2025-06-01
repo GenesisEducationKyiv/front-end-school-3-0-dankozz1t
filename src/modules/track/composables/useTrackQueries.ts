@@ -7,7 +7,6 @@ import type {
   TrackSortOrder,
 } from '../types';
 
-// Return type interface for the composable
 export interface UseTrackQueriesReturn {
   // State
   searchQuery: Ref<string>;
@@ -36,9 +35,6 @@ export interface UseTrackQueriesReturn {
   previousPage: () => void;
 }
 
-/**
- * Composable for managing track query parameters, filters, sorting, and pagination
- */
 export function useTrackQueries(): UseTrackQueriesReturn {
   // === STATE ===
   const searchQuery = ref<string>('');
@@ -62,9 +58,6 @@ export function useTrackQueries(): UseTrackQueriesReturn {
   }));
 
   // === METHODS ===
-  /**
-   * Build query parameters for API requests
-   */
   function buildQueryParams(): QueryParams {
     const params: QueryParams = {
       page: currentPage.value,
@@ -88,9 +81,6 @@ export function useTrackQueries(): UseTrackQueriesReturn {
     return params;
   }
 
-  /**
-   * Reset all filters and sorting to defaults
-   */
   function resetFilters(): void {
     searchQuery.value = '';
     selectedGenre.value = null;
@@ -100,78 +90,51 @@ export function useTrackQueries(): UseTrackQueriesReturn {
     currentPage.value = 1;
   }
 
-  /**
-   * Update search query
-   */
   function updateSearchQuery(query: string): void {
     searchQuery.value = query;
-    currentPage.value = 1; // Reset to first page on search
+    currentPage.value = 1;
   }
 
-  /**
-   * Update genre filter
-   */
   function updateGenreFilter(genre: string | null): void {
     selectedGenre.value = genre;
-    currentPage.value = 1; // Reset to first page on filter change
+    currentPage.value = 1;
   }
 
-  /**
-   * Update artist filter
-   */
   function updateArtistFilter(artist: string | null): void {
     selectedArtist.value = artist;
-    currentPage.value = 1; // Reset to first page on filter change
+    currentPage.value = 1;
   }
 
-  /**
-   * Update sorting
-   */
   function updateSorting(field: string, order: TrackSortOrder): void {
     sortBy.value = field;
     sortOrder.value = order;
-    currentPage.value = 1; // Reset to first page on sort change
+    currentPage.value = 1;
   }
 
-  /**
-   * Update pagination - go to specific page
-   */
   function updatePage(page: number): void {
     if (page >= 1) {
       currentPage.value = page;
     }
   }
 
-  /**
-   * Go to specific page (alias for updatePage)
-   */
   function goToPage(page: number): void {
     updatePage(page);
   }
 
-  /**
-   * Go to next page
-   */
   function nextPage(): void {
     currentPage.value += 1;
   }
 
-  /**
-   * Go to previous page
-   */
   function previousPage(): void {
     if (currentPage.value > 1) {
       currentPage.value -= 1;
     }
   }
 
-  /**
-   * Update items per page
-   */
   function updateItemsPerPage(items: number): void {
     if (items > 0) {
       itemsPerPage.value = items;
-      currentPage.value = 1; // Reset to first page on items per page change
+      currentPage.value = 1;
     }
   }
 

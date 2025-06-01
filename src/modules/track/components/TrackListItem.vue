@@ -20,7 +20,6 @@ const trackStore = useTrackStore();
 const playerStore = usePlayerStore();
 const modalsStore = useModalsPool();
 
-// Track image loading state
 const imageError = ref<boolean>(false);
 const imageLoading = ref<boolean>(false);
 

@@ -10,15 +10,12 @@ const trackStats = computed(() => {
   const currentPage = trackStore.currentPage;
   const itemsPerPage = trackStore.itemsPerPage;
 
-  // Calculate pagination info
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalTracks);
 
-  // Calculate unique artists and albums from current page
   const uniqueArtists = new Set(tracks.map(track => track.artist)).size;
   const uniqueAlbums = new Set(tracks.map(track => track.album).filter(Boolean)).size;
 
-  // Calculate genre distribution from current page
   const genreCount: Record<string, number> = {};
   tracks.forEach(track => {
     track.genres.forEach(genre => {

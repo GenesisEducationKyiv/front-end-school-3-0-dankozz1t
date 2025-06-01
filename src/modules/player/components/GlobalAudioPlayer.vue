@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { usePlayerStore } from '../store/playerStore';
+import { usePlayerStore } from '@/modules/player/store/playerStore';
 
 const playerStore = usePlayerStore();
 

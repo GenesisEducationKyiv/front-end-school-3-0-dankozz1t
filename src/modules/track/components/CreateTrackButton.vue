@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useModalsPool } from '@/stores/modalsPool';
+import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 
 const modalsStore = useModalsPool();
 

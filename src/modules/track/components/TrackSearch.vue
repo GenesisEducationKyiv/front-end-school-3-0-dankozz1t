@@ -10,7 +10,6 @@ const { value: searchInput, debouncedValue: debouncedSearch } = useDebounce(
   500
 );
 
-// Watch for debounced search changes and update store
 watch(debouncedSearch, async newSearch => {
   trackStore.updateSearchQuery(newSearch);
   await trackStore.fetchTracks();

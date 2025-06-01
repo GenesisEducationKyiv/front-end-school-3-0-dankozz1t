@@ -1,14 +1,11 @@
-import { defineStore } from 'pinia';
 import { ref, computed, type Ref, type ComputedRef } from 'vue';
-import { trackApi } from '../api/trackApi';
-import { useTrackQueries } from '../composables/useTrackQueries';
-import { useTrackSelection } from '../composables/useTrackSelection';
-import type { Track, TrackFormData } from '../types';
+import { defineStore } from 'pinia';
 
-/**
- * Track store - manages track state and operations
- * Business logic is delegated to composables for better separation of concerns
- */
+import type { Track, TrackFormData } from '@/modules/track/types';
+import { useTrackQueries } from '@/modules/track/composables/useTrackQueries';
+import { useTrackSelection } from '@/modules/track/composables/useTrackSelection';
+import { trackApi } from '@/modules/track/api/trackApi';
+
 export const useTrackStore = defineStore('track', () => {
   // === STATE ===
   const tracks = ref<Track[]>([]);
@@ -25,9 +22,6 @@ export const useTrackStore = defineStore('track', () => {
   );
 
   // === API ACTIONS ===
-  /**
-   * Fetch tracks with current filters, sorting and pagination
-   */
   async function fetchTracks(): Promise<void> {
     loading.value = true;
     try {
@@ -43,9 +37,6 @@ export const useTrackStore = defineStore('track', () => {
     }
   }
 
-  /**
-   * Create a new track
-   */
   async function createTrack(trackData: TrackFormData): Promise<Track> {
     loading.value = true;
     try {
@@ -60,9 +51,6 @@ export const useTrackStore = defineStore('track', () => {
     }
   }
 
-  /**
-   * Update an existing track
-   */
   async function updateTrack(id: string, trackData: Partial<TrackFormData>): Promise<Track> {
     loading.value = true;
     try {
@@ -77,9 +65,6 @@ export const useTrackStore = defineStore('track', () => {
     }
   }
 
-  /**
-   * Delete a track
-   */
   async function deleteTrack(id: string): Promise<void> {
     loading.value = true;
     try {
@@ -93,9 +78,6 @@ export const useTrackStore = defineStore('track', () => {
     }
   }
 
-  /**
-   * Delete multiple tracks
-   */
   async function deleteTracks(ids: string[]): Promise<void> {
     loading.value = true;
     try {
@@ -110,9 +92,6 @@ export const useTrackStore = defineStore('track', () => {
     }
   }
 
-  /**
-   * Upload an audio file for a track
-   */
   async function uploadTrackFile(id: string, file: File): Promise<Track> {
     loading.value = true;
     try {
@@ -127,9 +106,6 @@ export const useTrackStore = defineStore('track', () => {
     }
   }
 
-  /**
-   * Delete an audio file from a track
-   */
   async function deleteTrackFile(id: string): Promise<Track> {
     loading.value = true;
     try {

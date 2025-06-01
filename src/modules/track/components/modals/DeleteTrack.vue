@@ -4,17 +4,9 @@ import { useNotificationStore } from '@/shared/modules/notification/store/notifi
 import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import { type Track } from '@/modules/track/types';
+import type { XOR } from '@/shared/types';
 
-const props = withDefaults(
-  defineProps<{
-    track: Track | null;
-    trackIds: string[];
-  }>(),
-  {
-    track: null,
-    trackIds: () => [],
-  }
-);
+const props = defineProps<XOR<{ track: Track }, { trackIds: string[] }>>();
 
 const modalsStore = useModalsPool();
 
@@ -24,15 +16,13 @@ const notificationStore = useNotificationStore();
 const showDialog = ref<boolean>(true);
 const loading = ref<boolean>(false);
 
-const isBulkDelete: ComputedRef<boolean> = computed(
-  () => props.trackIds && props.trackIds.length > 0
-);
+const isBulkDelete: ComputedRef<boolean> = computed(() => Boolean(props.trackIds?.length));
 
 const confirmDelete = async (): Promise<void> => {
   try {
     loading.value = true;
 
-    if (isBulkDelete.value) {
+    if (isBulkDelete.value && props.trackIds) {
       await trackStore.deleteTracks(props.trackIds);
       notificationStore.notify(`Successfully deleted ${props.trackIds.length} tracks`, 'success');
     } else if (props.track) {
@@ -67,7 +57,7 @@ const closeDialog = (): void => {
           >" by {{ track?.artist }}?
         </p>
         <p v-else>
-          Are you sure you want to delete <strong>{{ trackIds.length }}</strong> selected tracks?
+          Are you sure you want to delete <strong>{{ trackIds?.length }}</strong> selected tracks?
         </p>
         <p class="text-caption text-red mt-2">This action cannot be undone.</p>
       </v-card-text>

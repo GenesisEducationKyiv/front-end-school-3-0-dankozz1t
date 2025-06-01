@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import TrackList from '@/modules/track/components/TrackList.vue';
+import TrackSummary from '@/modules/track/components/TrackSummary.vue';
 import TrackSearch from '@/modules/track/components/TrackSearch.vue';
 import TrackFilters from '@/modules/track/components/TrackFilters.vue';
-import TrackSummary from '@/modules/track/components/TrackSummary.vue';
+import TrackList from '@/modules/track/components/TrackList.vue';
 </script>
 
 <template>
@@ -12,16 +12,12 @@ import TrackSummary from '@/modules/track/components/TrackSummary.vue';
       <p class="text-body-1 text-grey-darken-1">Manage your music tracks</p>
     </div>
 
-    <!-- Summary Stats -->
     <TrackSummary />
 
-    <!-- Search -->
     <TrackSearch />
 
-    <!-- Filters & Sorting -->
     <TrackFilters />
 
-    <!-- Track List -->
     <TrackList />
   </div>
 </template>
