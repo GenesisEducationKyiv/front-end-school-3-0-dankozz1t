@@ -2,7 +2,7 @@
 import { computed, type ComputedRef } from 'vue';
 import { useTrackStore } from '../store/trackStore';
 import { usePlayerStore } from '../../player/store/playerStore';
-import { useVisiblePool } from '@/stores/visiblePool';
+import { useModalsPool } from '@/stores/modalsPool';
 import type { Track } from '../types';
 
 interface TrackListItemProps {
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<TrackListItemProps>(), {
 
 const trackStore = useTrackStore();
 const playerStore = usePlayerStore();
-const visibleStore = useVisiblePool();
+const visibleStore = useModalsPool();
 
 const isPlaying: ComputedRef<boolean> = computed(() => {
   return playerStore.isTrackPlaying(props.track.id);

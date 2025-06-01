@@ -32,8 +32,8 @@ vi.mock('../../src/stores/tracks', () => ({
   useTracksStore: vi.fn(() => mockTracksStore),
 }));
 
-vi.mock('../../src/stores/visiblePool', () => ({
-  useVisiblePool: vi.fn(() => ({
+vi.mock('../../src/stores/modalsPool', () => ({
+  useModalsPool: vi.fn(() => ({
     addVisibleItem: vi.fn(),
   })),
 }));

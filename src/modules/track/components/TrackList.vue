@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { useTrackStore } from '../store/trackStore';
-import { useVisiblePool } from '@/stores/visiblePool';
+import { useModalsPool } from '@/stores/modalsPool';
 import TrackListItem from './TrackListItem.vue';
 
 const trackStore = useTrackStore();
-const visibleStore = useVisiblePool();
+const visibleStore = useModalsPool();
 
 const bulkSelectMode = ref<boolean>(false);
 

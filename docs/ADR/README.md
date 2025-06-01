@@ -15,7 +15,7 @@
 6. [0006-http-axios.md](./decisions/0006-http-axios.md) — Choosing Axios for HTTP requests.
 7. [0007-project-structure.md](./decisions/0007-project-structure.md) — Project structure and code organization.
 8. [0008-testing-strategy.md](./decisions/0008-testing-strategy.md) — Testing strategy.
-9. [0009-modal-windows-visiblepool.md](./decisions/0009-modal-windows-visiblepool.md) — Modal windows implementation.
+9. [0009-modal-windows-modalsPool.md](./decisions/0009-modal-windows-modalsPool.md) — Modal windows implementation.
 
 ## ADR Format
 

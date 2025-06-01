@@ -48,12 +48,12 @@ const initialList: readonly ModalItem[] = [
   },
 ] as const;
 
-export const useVisiblePool = defineStore('visibility-store', () => {
-  const visiblePool = ref<ModalItem[]>([]);
+export const useModalsPool = defineStore('visibility-store', () => {
+  const modalsPool = ref<ModalItem[]>([]);
 
   const isItemInPool = computed(() => {
     return (name: ModalName): boolean => {
-      return !!visiblePool.value?.find(item => item.name === name);
+      return !!modalsPool.value?.find(item => item.name === name);
     };
   });
 
@@ -72,24 +72,24 @@ export const useVisiblePool = defineStore('visibility-store', () => {
       data: data || {},
     };
 
-    visiblePool.value?.push(modalItem);
+    modalsPool.value?.push(modalItem);
   };
 
   const removeVisibleItem = (name: ModalName): void => {
-    visiblePool.value = visiblePool.value?.filter(item => {
+    modalsPool.value = modalsPool.value?.filter(item => {
       return item.name !== name;
     });
   };
 
   watch(
-    () => visiblePool.value.length,
+    () => modalsPool.value.length,
     (val: number): void => {
       document.body.classList.toggle('--no-scroll', val > 0);
     }
   );
 
   return {
-    visiblePool,
+    modalsPool,
     isItemInPool,
     addVisibleItem,
     removeVisibleItem,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useVisiblePool } from '@/stores/visiblePool';
+import { useModalsPool } from '@/stores/modalsPool';
 
-const visibleStore = useVisiblePool();
+const visibleStore = useModalsPool();
 
 const openCreateTrackForm = (): void => {
   visibleStore.addVisibleItem('TrackForm');

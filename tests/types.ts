@@ -48,7 +48,7 @@ export interface ModalData {
   [key: string]: unknown;
 }
 
-export interface VisiblePoolStore {
+export interface ModalsPoolStore {
   addVisibleItem: (name: string, props?: ModalData) => void;
   removeVisibleItem: (name: string) => void;
 }

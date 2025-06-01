@@ -2,14 +2,14 @@
 import { ref, onBeforeUnmount } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
 import { useTracksStore } from '@/stores/tracks';
-import { useVisiblePool } from '@/stores/visiblePool';
+import { useModalsPool } from '@/stores/modalsPool';
 import { type Track } from '@/services/tracks';
 
 const props = defineProps<{
   track: Track;
 }>();
 
-const visibleStore = useVisiblePool();
+const visibleStore = useModalsPool();
 const tracksStore = useTracksStore();
 const notificationStore = useNotificationStore();
 
@@ -20,7 +20,7 @@ const previewUrl = ref<string | null>(null);
 const formRef = ref<HTMLFormElement | null>(null);
 const formValid = ref<boolean>(false);
 
-const handleFileChange = (_event?: Event | File | File[]) => {
+const handleFileChange = () => {
   if (previewUrl.value) {
     URL.revokeObjectURL(previewUrl.value);
     previewUrl.value = null;

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import AppNotification from '@/shared/components/AppNotification.vue';
 import AppLayout from '@/shared/components/AppLayout.vue';
-import { useVisiblePool } from '@/stores/visiblePool';
+import { useModalsPool } from '@/stores/modalsPool';
 import { storeToRefs } from 'pinia';
 
-const visibleStore = useVisiblePool();
-const { visiblePool } = storeToRefs(visibleStore);
+const visibleStore = useModalsPool();
+const { modalsPool } = storeToRefs(visibleStore);
 </script>
 
 <template>
@@ -17,7 +17,7 @@ const { visiblePool } = storeToRefs(visibleStore);
     <!-- Dynamic modals and overlays -->
     <component
       :is="item.component"
-      v-for="item in visiblePool"
+      v-for="item in modalsPool"
       :key="item.name"
       v-bind="item?.data"
     />

@@ -24,8 +24,8 @@ const createMockTrack = (overrides: Partial<Track> = {}): Track => ({
 // Mock stores
 vi.mock('../../store/trackStore');
 vi.mock('@/modules/player/store/playerStore');
-vi.mock('@/stores/visiblePool', () => ({
-  useVisiblePool: () => ({
+vi.mock('@/stores/modalsPool', () => ({
+  useModalsPool: () => ({
     addVisibleItem: vi.fn(),
   }),
 }));

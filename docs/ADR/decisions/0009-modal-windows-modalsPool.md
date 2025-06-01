@@ -1,4 +1,4 @@
-# 0009. Modal Windows Implementation through VisiblePool
+# 0009. Modal Windows Implementation through ModalsPool
 
 - **Status:** Accepted
 - **Date:** 27.05.2025
@@ -12,7 +12,7 @@ For Music Manager, we need a modal window system that will provide:
 
 ## Decision
 
-It was decided to use VisiblePool for managing modal windows.
+It was decided to use ModalsPool for managing modal windows.
 
 1. **System architecture**
    - Centralized store for managing modal window state

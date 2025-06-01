@@ -2,7 +2,7 @@
 import { ref, computed, type ComputedRef } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
 import { useTracksStore } from '@/stores/tracks';
-import { useVisiblePool } from '@/stores/visiblePool';
+import { useModalsPool } from '@/stores/modalsPool';
 import { useGenresStore } from '@/stores/genres';
 import { type Track, type TrackFormData } from '@/services/tracks';
 
@@ -15,7 +15,7 @@ const props = withDefaults(
   }
 );
 
-const visibleStore = useVisiblePool();
+const visibleStore = useModalsPool();
 const tracksStore = useTracksStore();
 const notificationStore = useNotificationStore();
 const genresStore = useGenresStore();
