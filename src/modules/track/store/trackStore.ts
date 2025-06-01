@@ -123,8 +123,8 @@ export const useTrackStore = defineStore('track', () => {
   return {
     // State
     tracks: tracks as Ref<Track[]>,
-    totalTracks: totalTracks as Ref<number>,
-    loading: loading as Ref<boolean>,
+    totalTracks: totalTracks,
+    loading: loading,
 
     // Computed
     totalPages,

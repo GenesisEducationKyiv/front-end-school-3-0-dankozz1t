@@ -86,7 +86,7 @@ export function useAudioPlayer(events?: PlayerEvents) {
     loading.value = true;
 
     try {
-      const audioUrl = `${import.meta.env.VITE_API_BASE_URL}/api/files/${track.audioFile}`;
+      const audioUrl = `${import.meta.env['VITE_API_BASE_URL']}/api/files/${track.audioFile}`;
       currentAudio.value = new Audio(audioUrl);
       setupAudioPlayer(currentAudio.value);
 
@@ -153,13 +153,13 @@ export function useAudioPlayer(events?: PlayerEvents) {
   return {
     // State
     currentTrack: currentTrack as Ref<Track | null>,
-    currentAudio: currentAudio as Ref<HTMLAudioElement | null>,
-    currentTime: currentTime as Ref<number>,
-    duration: duration as Ref<number>,
-    volume: volume as Ref<number>,
-    loading: loading as Ref<boolean>,
-    isPlaying: isPlaying as Ref<boolean>,
-    isPaused: isPaused as Ref<boolean>,
+    currentAudio: currentAudio,
+    currentTime: currentTime,
+    duration: duration,
+    volume: volume,
+    loading: loading,
+    isPlaying: isPlaying,
+    isPaused: isPaused,
 
     // Methods
     playTrack,
