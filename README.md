@@ -37,7 +37,4 @@ npm test
 ```
 
 # Music Manager Architecture Decision Records (ADR)
-
-## Available Languages:
-- 🇺🇦 [UA -> README.md](./docs/ADR/ua/README.md) — Ukrainian version. All architectural decisions
-- 🇺🇸 [EN -> README.md](./docs/ADR/en/README.md) — English version. All architectural decisions 
+- [docs -> ADR ->  README.md](./docs/ADR/README.md) —  All architectural decisions 

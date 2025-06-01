@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 
 vi.mock('../../src/composables/useDebounce', () => ({
-  useDebounce: (initialValue: string, delay: number) => {
+  useDebounce: (initialValue: string, _delay: number) => {
     const value = ref(initialValue);
     const debouncedValue = computed(() => value.value);
     return { value, debouncedValue };

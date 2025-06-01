@@ -44,8 +44,12 @@ export interface NotificationStore {
   notify: (message: string, type: 'success' | 'error' | 'info' | 'warning') => void;
 }
 
+export interface ModalData {
+  [key: string]: unknown;
+}
+
 export interface VisiblePoolStore {
-  addVisibleItem: (name: string, props?: Record<string, any>) => void;
+  addVisibleItem: (name: string, props?: ModalData) => void;
   removeVisibleItem: (name: string) => void;
 }
 

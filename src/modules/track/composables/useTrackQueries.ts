@@ -3,7 +3,6 @@ import type {
   QueryParams,
   TrackFilters,
   TrackSorting,
-  TrackPagination,
   TrackSortField,
   TrackSortOrder,
 } from '../types';

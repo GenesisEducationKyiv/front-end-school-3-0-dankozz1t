@@ -6,7 +6,6 @@ const playerStore = usePlayerStore();
 
 const currentTrack = computed(() => playerStore.currentTrack);
 const isPlaying = computed(() => playerStore.isPlaying);
-const isPaused = computed(() => playerStore.isPaused);
 const hasAudioLoaded = computed(() => playerStore.hasAudioLoaded);
 
 const formatTime = (seconds: number): string => {

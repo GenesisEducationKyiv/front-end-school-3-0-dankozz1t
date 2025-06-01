@@ -20,7 +20,7 @@ const previewUrl = ref<string | null>(null);
 const formRef = ref<HTMLFormElement | null>(null);
 const formValid = ref<boolean>(false);
 
-const handleFileChange = (event: Event | File | File[]) => {
+const handleFileChange = (_event?: Event | File | File[]) => {
   if (previewUrl.value) {
     URL.revokeObjectURL(previewUrl.value);
     previewUrl.value = null;
