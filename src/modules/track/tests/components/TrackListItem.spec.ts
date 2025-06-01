@@ -178,7 +178,7 @@ describe('TrackListItem', () => {
 
       const chips = wrapper.findAll('.v-chip');
       expect(chips.length).toBe(1);
-      expect(chips[0].text()).toBe('Rock');
+      expect(chips[0]?.text()).toBe('Rock');
     });
   });
 

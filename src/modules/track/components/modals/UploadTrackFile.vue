@@ -33,7 +33,7 @@ const handleFileChange = () => {
 
 const validateForm = async (): Promise<boolean> => {
   if (!formRef.value) return false;
-  const { valid } = await formRef.value.validate();
+  const { valid } = await formRef.value['validate']();
   formValid.value = valid;
   return valid;
 };

@@ -1,4 +1,4 @@
-import { ref, computed, type Ref, type ComputedRef } from 'vue';
+import { ref, computed, type ComputedRef } from 'vue';
 import type { Track } from '../types';
 
 export function useTrackSelection() {
@@ -49,7 +49,7 @@ export function useTrackSelection() {
 
   return {
     // State
-    selectedTracks: selectedTracks as Ref<string[]>,
+    selectedTracks: selectedTracks,
 
     // Computed
     isInBulkMode,
