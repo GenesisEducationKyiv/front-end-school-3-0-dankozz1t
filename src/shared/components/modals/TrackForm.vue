@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, computed, type ComputedRef } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
-import { useTracksStore } from '@/stores/tracks';
+import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useModalsPool } from '@/stores/modalsPool';
 import { useGenresStore } from '@/stores/genres';
-import { type Track, type TrackFormData } from '@/services/tracks';
+import { type Track, type TrackFormData } from '@/modules/track/types';
 
 const props = withDefaults(
   defineProps<{
@@ -16,7 +16,7 @@ const props = withDefaults(
 );
 
 const visibleStore = useModalsPool();
-const tracksStore = useTracksStore();
+const trackStore = useTrackStore();
 const notificationStore = useNotificationStore();
 const genresStore = useGenresStore();
 
@@ -27,6 +27,7 @@ const form = ref<TrackFormData>({
   artist: props.track?.artist || '',
   album: props.track?.album || '',
   genres: props.track?.genres || [],
+  coverImage: props.track?.coverImage || '',
 });
 const formRef = ref<HTMLFormElement | null>(null);
 const formValid = ref<boolean>(false);
@@ -40,6 +41,18 @@ const validateForm = async (): Promise<boolean> => {
   return valid;
 };
 
+const validateImageUrl = (url: string): boolean => {
+  if (!url) return true; // Empty URL is valid
+
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    console.log('Invalid URL:', url);
+    return /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/i.test(url);
+  }
+};
+
 const submitForm = async (): Promise<void> => {
   const isValid = await validateForm();
   if (!isValid) {
@@ -51,10 +64,10 @@ const submitForm = async (): Promise<void> => {
     loading.value = true;
 
     if (isEditMode.value && props.track) {
-      await tracksStore.updateTrack(props.track.id, form.value);
+      await trackStore.updateTrack(props.track.id, form.value);
       notificationStore.notify('Track updated successfully', 'success');
     } else {
-      await tracksStore.createTrack(form.value);
+      await trackStore.createTrack(form.value);
       notificationStore.notify('Track created successfully', 'success');
     }
 
@@ -94,9 +107,6 @@ const closeDialog = (): void => {
             :rules="[v => !!v || 'Title is required']"
             data-testid="input-title"
           />
-          <div v-if="!form.title" data-testid="error-title" class="text-error text-caption">
-            Title is required
-          </div>
 
           <v-text-field
             v-model="form.artist"
@@ -105,9 +115,6 @@ const closeDialog = (): void => {
             :rules="[v => !!v || 'Artist is required']"
             data-testid="input-artist"
           />
-          <div v-if="!form.artist" data-testid="error-artist" class="text-error text-caption">
-            Artist is required
-          </div>
 
           <v-text-field v-model="form.album" label="Album" data-testid="input-album" />
 
@@ -115,12 +122,9 @@ const closeDialog = (): void => {
             v-model="form.coverImage"
             label="Cover Image URL"
             data-testid="input-cover-image"
-            :rules="[
-              v =>
-                !v ||
-                /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/i.test(v) ||
-                'Please enter a valid URL',
-            ]"
+            :rules="[v => validateImageUrl(v) || 'Please enter a valid URL']"
+            hint="Enter a direct link to an image"
+            persistentHint
           />
 
           <v-combobox

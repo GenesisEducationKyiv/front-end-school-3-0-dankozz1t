@@ -72,15 +72,30 @@ const sortOptions = [
   { title: 'Album (Z-A)', value: 'album', order: 'desc' },
 ];
 
-const currentSortOption = computed(() => {
-  return (
-    sortOptions.find(option => option.value === sortBy.value && option.order === sortOrder.value) ||
-    sortOptions[0]
+const currentSortKey = computed(() => {
+  const option = sortOptions.find(
+    option => option.value === sortBy.value && option.order === sortOrder.value
   );
+  return option ? `${option.value}-${option.order}` : 'createdAt-desc';
 });
 
-const updateSort = async (option: (typeof sortOptions)[0]): Promise<void> => {
-  trackStore.updateSorting(option.value, option.order as 'asc' | 'desc');
+const sortOptionsWithKeys = computed(() => {
+  return sortOptions.map(option => ({
+    ...option,
+    key: `${option.value}-${option.order}`,
+  }));
+});
+
+const updateSort = async (key: string): Promise<void> => {
+  const option = sortOptions.find(opt => `${opt.value}-${opt.order}` === key);
+  if (option) {
+    trackStore.updateSorting(option.value, option.order as 'asc' | 'desc');
+    await trackStore.fetchTracks();
+  }
+};
+
+const updateItemsPerPage = async (value: number): Promise<void> => {
+  trackStore.updateItemsPerPage(value);
   await trackStore.fetchTracks();
 };
 </script>
@@ -136,11 +151,11 @@ const updateSort = async (option: (typeof sortOptions)[0]): Promise<void> => {
         <!-- Sort Options -->
         <v-col cols="12" md="4">
           <v-select
-            :modelValue="currentSortOption"
-            :items="sortOptions"
+            :modelValue="currentSortKey"
+            :items="sortOptionsWithKeys"
             label="Sort by"
             itemTitle="title"
-            returnObject
+            itemValue="key"
             prependIcon="mdi-sort"
             variant="outlined"
             density="compact"
@@ -159,7 +174,7 @@ const updateSort = async (option: (typeof sortOptions)[0]): Promise<void> => {
             variant="outlined"
             density="compact"
             data-testid="items-per-page"
-            @update:modelValue="trackStore.updateItemsPerPage"
+            @update:modelValue="updateItemsPerPage"
           />
         </v-col>
       </v-row>

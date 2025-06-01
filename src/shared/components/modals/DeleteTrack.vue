@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, type ComputedRef } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
-import { useTracksStore } from '@/stores/tracks';
+import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useModalsPool } from '@/stores/modalsPool';
-import { type Track } from '@/services/tracks';
+import { type Track } from '@/modules/track/types';
 
 const props = withDefaults(
   defineProps<{
@@ -18,7 +18,7 @@ const props = withDefaults(
 
 const visibleStore = useModalsPool();
 
-const tracksStore = useTracksStore();
+const trackStore = useTrackStore();
 const notificationStore = useNotificationStore();
 
 const showDialog = ref<boolean>(true);
@@ -33,10 +33,10 @@ const confirmDelete = async (): Promise<void> => {
     loading.value = true;
 
     if (isBulkDelete.value) {
-      await tracksStore.deleteTracks(props.trackIds);
+      await trackStore.deleteTracks(props.trackIds);
       notificationStore.notify(`Successfully deleted ${props.trackIds.length} tracks`, 'success');
     } else if (props.track) {
-      await tracksStore.deleteTrack(props.track.id);
+      await trackStore.deleteTrack(props.track.id);
       notificationStore.notify('Track deleted successfully', 'success');
     }
 

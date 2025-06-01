@@ -1,39 +1,62 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
 import TrackListItem from '../../components/TrackListItem.vue';
 import { useTrackStore } from '../../store/trackStore';
-import { usePlayerStore } from '@/modules/player/store/playerStore';
+import { usePlayerStore } from '../../../player/store/playerStore';
 import type { Track } from '../../types';
 
-// Inline mock factory
+// Mock the stores
+vi.mock('../../store/trackStore');
+vi.mock('../../../player/store/playerStore');
+vi.mock('@/stores/modalsPool', () => ({
+  useModalsPool: vi.fn(() => ({
+    addVisibleItem: vi.fn(),
+  })),
+}));
+
 const createMockTrack = (overrides: Partial<Track> = {}): Track => ({
   id: 'track-1',
   title: 'Test Track',
   artist: 'Test Artist',
   album: 'Test Album',
-  genres: ['Rock', 'Alternative'],
+  genres: ['Rock'],
   slug: 'test-track',
-  coverImage: 'https://example.com/cover.jpg',
-  audioFile: 'https://example.com/audio.mp3',
-  createdAt: '2024-01-01T00:00:00Z',
-  updatedAt: '2024-01-01T00:00:00Z',
+  createdAt: '2023-01-01T00:00:00Z',
+  updatedAt: '2023-01-01T00:00:00Z',
   ...overrides,
 });
 
-// Mock stores
-vi.mock('../../store/trackStore');
-vi.mock('@/modules/player/store/playerStore');
-vi.mock('@/stores/modalsPool', () => ({
-  useModalsPool: () => ({
-    addVisibleItem: vi.fn(),
-  }),
-}));
+interface MockTrackStore {
+  selectedTrackIds: string[];
+  isInBulkMode: boolean;
+  toggleTrackSelection: ReturnType<typeof vi.fn>;
+  deleteTrack: ReturnType<typeof vi.fn>;
+  updateTrack: ReturnType<typeof vi.fn>;
+}
+
+interface MockPlayerStore {
+  currentTrack: Track | null;
+  isPlaying: boolean;
+  loading: boolean;
+  playTrack: ReturnType<typeof vi.fn>;
+  pauseTrack: ReturnType<typeof vi.fn>;
+  resumeTrack: ReturnType<typeof vi.fn>;
+  isTrackPlaying: ReturnType<typeof vi.fn>;
+  isTrackPaused: ReturnType<typeof vi.fn>;
+  isTrackLoaded: ReturnType<typeof vi.fn>;
+}
+
+interface MountComponentProps {
+  track?: Track;
+  bulkSelectMode?: boolean;
+  selected?: boolean;
+}
 
 describe('TrackListItem', () => {
   let pinia: ReturnType<typeof createPinia>;
-  let mockTrackStore: any;
-  let mockPlayerStore: any;
+  let mockTrackStore: MockTrackStore;
+  let mockPlayerStore: MockPlayerStore;
 
   const mockTrack = createMockTrack({
     id: 'track-1',
@@ -62,16 +85,20 @@ describe('TrackListItem', () => {
       playTrack: vi.fn(),
       pauseTrack: vi.fn(),
       resumeTrack: vi.fn(),
-      isTrackPlaying: vi.fn(() => false),
-      isTrackPaused: vi.fn(() => false),
-      isTrackLoaded: vi.fn(() => false),
+      isTrackPlaying: vi.fn().mockReturnValue(false),
+      isTrackPaused: vi.fn().mockReturnValue(false),
+      isTrackLoaded: vi.fn().mockReturnValue(false),
     };
 
-    vi.mocked(useTrackStore).mockReturnValue(mockTrackStore as any);
-    vi.mocked(usePlayerStore).mockReturnValue(mockPlayerStore as any);
+    vi.mocked(useTrackStore).mockReturnValue(
+      mockTrackStore as unknown as ReturnType<typeof useTrackStore>
+    );
+    vi.mocked(usePlayerStore).mockReturnValue(
+      mockPlayerStore as unknown as ReturnType<typeof usePlayerStore>
+    );
   });
 
-  const mountComponent = (props: any = {}) => {
+  const mountComponent = (props: MountComponentProps = {}) => {
     return mount(TrackListItem, {
       props: {
         track: mockTrack,
@@ -183,7 +210,8 @@ describe('TrackListItem', () => {
   describe('playback controls', () => {
     it('should show play button when track is not playing', () => {
       mockPlayerStore.isTrackPlaying.mockReturnValue(false);
-      const wrapper = mountComponent();
+      const trackWithAudio = { ...mockTrack, audioFile: 'https://example.com/audio.mp3' };
+      const wrapper = mountComponent({ track: trackWithAudio });
 
       const playButton = wrapper.find(`[data-testid="play-button-${mockTrack.id}"]`);
       expect(playButton.exists()).toBe(true);
@@ -191,7 +219,8 @@ describe('TrackListItem', () => {
 
     it('should show pause button when track is playing', () => {
       mockPlayerStore.isTrackPlaying.mockReturnValue(true);
-      const wrapper = mountComponent();
+      const trackWithAudio = { ...mockTrack, audioFile: 'https://example.com/audio.mp3' };
+      const wrapper = mountComponent({ track: trackWithAudio });
 
       const pauseButton = wrapper.find(`[data-testid="pause-button-${mockTrack.id}"]`);
       expect(pauseButton.exists()).toBe(true);
@@ -199,17 +228,19 @@ describe('TrackListItem', () => {
 
     it('should call playTrack when play button is clicked', async () => {
       mockPlayerStore.isTrackPlaying.mockReturnValue(false);
-      const wrapper = mountComponent();
+      const trackWithAudio = { ...mockTrack, audioFile: 'https://example.com/audio.mp3' };
+      const wrapper = mountComponent({ track: trackWithAudio });
 
       const playButton = wrapper.find(`[data-testid="play-button-${mockTrack.id}"]`);
       await playButton.trigger('click');
 
-      expect(mockPlayerStore.playTrack).toHaveBeenCalledWith(mockTrack);
+      expect(mockPlayerStore.playTrack).toHaveBeenCalledWith(trackWithAudio);
     });
 
     it('should call pauseTrack when pause button is clicked', async () => {
       mockPlayerStore.isTrackPlaying.mockReturnValue(true);
-      const wrapper = mountComponent();
+      const trackWithAudio = { ...mockTrack, audioFile: 'https://example.com/audio.mp3' };
+      const wrapper = mountComponent({ track: trackWithAudio });
 
       const pauseButton = wrapper.find(`[data-testid="pause-button-${mockTrack.id}"]`);
       await pauseButton.trigger('click');
@@ -219,7 +250,8 @@ describe('TrackListItem', () => {
 
     it('should show progress indicator when track is playing', () => {
       mockPlayerStore.isTrackPlaying.mockReturnValue(true);
-      const wrapper = mountComponent();
+      const trackWithAudio = { ...mockTrack, audioFile: 'https://example.com/audio.mp3' };
+      const wrapper = mountComponent({ track: trackWithAudio });
 
       const progress = wrapper.find(`[data-testid="audio-progress-${mockTrack.id}"]`);
       expect(progress.exists()).toBe(true);

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
-import { useTrackStore } from '../store/trackStore';
-import { useDebounce } from '@/composables/useDebounce';
+import { useTrackStore } from '@/modules/track/store/trackStore';
+import { useDebounce } from '@/shared/composables/useDebounce';
 
 const trackStore = useTrackStore();
 

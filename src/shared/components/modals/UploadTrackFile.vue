@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from 'vue';
 import { useNotificationStore } from '@/stores/notification';
-import { useTracksStore } from '@/stores/tracks';
+import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useModalsPool } from '@/stores/modalsPool';
-import { type Track } from '@/services/tracks';
+import { type Track } from '@/modules/track/types';
 
 const props = defineProps<{
   track: Track;
 }>();
 
 const visibleStore = useModalsPool();
-const tracksStore = useTracksStore();
+const trackStore = useTrackStore();
 const notificationStore = useNotificationStore();
 
 const showDialog = ref<boolean>(true);
@@ -47,7 +47,7 @@ const submitUpload = async (): Promise<void> => {
 
   try {
     loading.value = true;
-    await tracksStore.uploadTrackFile(props.track.id, selectedFile.value);
+    await trackStore.uploadTrackFile(props.track.id, selectedFile.value);
     notificationStore.notify('File uploaded successfully', 'success');
     closeDialog();
   } catch (error) {
@@ -69,7 +69,6 @@ const closeDialog = (): void => {
 onBeforeUnmount(() => {
   if (previewUrl.value) {
     URL.revokeObjectURL(previewUrl.value);
-    previewUrl.value = null;
   }
 });
 </script>

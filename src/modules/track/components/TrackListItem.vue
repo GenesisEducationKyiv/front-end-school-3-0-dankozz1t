@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type ComputedRef } from 'vue';
+import { computed, ref, type ComputedRef } from 'vue';
 import { useTrackStore } from '../store/trackStore';
 import { usePlayerStore } from '../../player/store/playerStore';
 import { useModalsPool } from '@/stores/modalsPool';
@@ -19,6 +19,10 @@ const props = withDefaults(defineProps<TrackListItemProps>(), {
 const trackStore = useTrackStore();
 const playerStore = usePlayerStore();
 const visibleStore = useModalsPool();
+
+// Track image loading state
+const imageError = ref<boolean>(false);
+const imageLoading = ref<boolean>(false);
 
 const isPlaying: ComputedRef<boolean> = computed(() => {
   return playerStore.isTrackPlaying(props.track.id);
@@ -62,6 +66,21 @@ const handleUpload = (): void => {
 const handleDelete = (): void => {
   visibleStore.addVisibleItem('DeleteTrack', { track: props.track });
 };
+
+const handleImageError = (): void => {
+  imageError.value = true;
+  imageLoading.value = false;
+};
+
+const handleImageLoad = (): void => {
+  imageError.value = false;
+  imageLoading.value = false;
+};
+
+const handleImageLoadStart = (): void => {
+  imageError.value = false;
+  imageLoading.value = true;
+};
 </script>
 
 <template>
@@ -78,22 +97,30 @@ const handleDelete = (): void => {
         </div>
       </v-col>
       <v-col cols="12" md="2" class="d-flex align-center justify-center">
-        <v-img
-          v-if="track.coverImage"
-          :src="track.coverImage"
-          :alt="track.title"
-          class="track-image ma-2"
-          width="80"
-          cover
-        >
-          <template #placeholder>
-            <div class="d-flex align-center justify-center fill-height">
-              <v-progress-circular color="grey-lighten-4" indeterminate />
-            </div>
-          </template>
-        </v-img>
-        <div v-else>
-          <v-icon icon="mdi-music" size="64" color="grey" />
+        <div v-if="track.coverImage && !imageError" class="image-container">
+          <v-img
+            :src="track.coverImage"
+            :alt="track.title"
+            class="track-image ma-2"
+            cover
+            @error="handleImageError"
+            @load="handleImageLoad"
+            @loadstart="handleImageLoadStart"
+          >
+            <template #placeholder>
+              <div class="d-flex align-center justify-center fill-height">
+                <v-progress-circular
+                  v-if="imageLoading"
+                  color="grey-lighten-4"
+                  indeterminate
+                  size="24"
+                />
+              </div>
+            </template>
+          </v-img>
+        </div>
+        <div v-else class="d-flex align-center justify-center" style="width: 80px; height: 80px">
+          <v-icon icon="mdi-music" size="48" color="grey" />
         </div>
       </v-col>
 
@@ -196,13 +223,17 @@ const handleDelete = (): void => {
   width: 40px;
 }
 
+.image-container {
+  width: 100%;
+}
+
 .track-image {
   height: 80px;
   min-height: 80px;
 
   @media (max-width: 600px) {
-    height: 160px;
-    min-height: 160px;
+    height: 200px;
+    min-height: 200px;
   }
 }
 </style>

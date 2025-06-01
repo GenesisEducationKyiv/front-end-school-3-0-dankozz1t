@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed, type ComputedRef, type Ref } from 'vue';
 import api, { type Track, type TrackFormData, type QueryParams } from '@/services/tracks';
-import { useAudioPlayer } from '@/composables/useAudioPlayer';
+import { useAudioPlayer } from '@/modules/player/composables/useAudioPlayer';
 
 export interface TracksState {
   tracks: Ref<Track[]>;

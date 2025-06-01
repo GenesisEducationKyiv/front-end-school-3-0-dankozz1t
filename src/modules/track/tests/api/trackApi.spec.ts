@@ -238,8 +238,8 @@ describe('Track API', () => {
       const mockTrack = createMockTrack();
 
       let capturedFormData: FormData | undefined;
-      mockedHttp.post.mockImplementationOnce((url: string, data: any) => {
-        capturedFormData = data as FormData;
+      mockedHttp.post.mockImplementationOnce((url: string, data: FormData) => {
+        capturedFormData = data;
         return Promise.resolve(mockTrack);
       });
 

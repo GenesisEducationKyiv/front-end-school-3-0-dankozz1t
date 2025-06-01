@@ -15,8 +15,8 @@ import GlobalAudioPlayer from '@/modules/player/components/GlobalAudioPlayer.vue
   </v-main>
 
   <v-footer app class="d-flex flex-column" color="primary" dark>
-    <div class="d-flex w-100 align-center px-4 py-2">
-      <GlobalAudioPlayer />
+    <div class="d-flex w-100 align-center">
+      <GlobalAudioPlayer class="w-100" />
     </div>
 
     <div class="text-center" cols="12">
