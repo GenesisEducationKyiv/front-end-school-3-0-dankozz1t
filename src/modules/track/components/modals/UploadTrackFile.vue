@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from 'vue';
-import { useNotificationStore } from '@/stores/notification';
+import { useNotificationStore } from '@/shared/modules/notification/store/notification';
 import { useTrackStore } from '@/modules/track/store/trackStore';
-import { useModalsPool } from '@/stores/modalsPool';
+import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import { type Track } from '@/modules/track/types';
 
 const props = defineProps<{
   track: Track;
 }>();
 
-const visibleStore = useModalsPool();
+const modalsStore = useModalsPool();
 const trackStore = useTrackStore();
 const notificationStore = useNotificationStore();
 
@@ -63,7 +63,7 @@ const closeDialog = (): void => {
     URL.revokeObjectURL(previewUrl.value);
     previewUrl.value = null;
   }
-  visibleStore.removeVisibleItem('UploadTrackFile');
+  modalsStore.removeVisibleItem('UploadTrackFile');
 };
 
 onBeforeUnmount(() => {

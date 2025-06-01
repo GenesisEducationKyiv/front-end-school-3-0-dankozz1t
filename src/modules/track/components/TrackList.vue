@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
-import { useTrackStore } from '../store/trackStore';
-import { useModalsPool } from '@/stores/modalsPool';
+import { useTrackStore } from '@/modules/track/store/trackStore';
+import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import TrackListItem from './TrackListItem.vue';
 
 const trackStore = useTrackStore();
-const visibleStore = useModalsPool();
+const modalsStore = useModalsPool();
 
 const bulkSelectMode = ref<boolean>(false);
 
@@ -22,12 +22,12 @@ watch(
 );
 
 const handleCreateTrack = (): void => {
-  visibleStore.addVisibleItem('TrackForm');
+  modalsStore.addVisibleItem('TrackForm');
 };
 
 const handleBulkDelete = (): void => {
   if (trackStore.selectedTracks.length > 0) {
-    visibleStore.addVisibleItem('DeleteTrack', { trackIds: trackStore.selectedTracks });
+    modalsStore.addVisibleItem('DeleteTrack', { trackIds: trackStore.selectedTracks });
   }
 };
 

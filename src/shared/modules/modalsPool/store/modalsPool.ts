@@ -8,47 +8,41 @@ import {
   type Component,
   type ShallowRef,
 } from 'vue';
-import type { Track } from '@/modules/track/types';
 
-// Define specific modal names as a union type
 export type ModalName = 'DeleteTrack' | 'TrackForm' | 'UploadTrackFile';
 
-// Interface for modal data
 export interface ModalData {
-  track?: Track;
   [key: string]: unknown;
 }
 
-// Interface for modal items
 export interface ModalItem {
   name: ModalName;
   component: ShallowRef<Component>;
   data?: ModalData;
 }
 
-// Properly typed initial list
 const initialList: readonly ModalItem[] = [
   {
     name: 'DeleteTrack',
     component: shallowRef(
-      defineAsyncComponent(() => import('@/shared/components/modals/DeleteTrack.vue'))
+      defineAsyncComponent(() => import('@/modules/track/components/modals/DeleteTrack.vue'))
     ),
   },
   {
     name: 'TrackForm',
     component: shallowRef(
-      defineAsyncComponent(() => import('@/shared/components/modals/TrackForm.vue'))
+      defineAsyncComponent(() => import('@/modules/track/components/modals/TrackForm.vue'))
     ),
   },
   {
     name: 'UploadTrackFile',
     component: shallowRef(
-      defineAsyncComponent(() => import('@/shared/components/modals/UploadTrackFile.vue'))
+      defineAsyncComponent(() => import('@/modules/track/components/modals/UploadTrackFile.vue'))
     ),
   },
 ] as const;
 
-export const useModalsPool = defineStore('visibility-store', () => {
+export const useModalsPool = defineStore('modals-pool', () => {
   const modalsPool = ref<ModalItem[]>([]);
 
   const isItemInPool = computed(() => {

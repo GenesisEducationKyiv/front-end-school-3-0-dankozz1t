@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, type ComputedRef } from 'vue';
-import { useTrackStore } from '../store/trackStore';
-import { usePlayerStore } from '../../player/store/playerStore';
-import { useModalsPool } from '@/stores/modalsPool';
+import { useTrackStore } from '@/modules/track/store/trackStore';
+import { usePlayerStore } from '@/modules/player/store/playerStore';
+import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import type { Track } from '../types';
 
 interface TrackListItemProps {
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<TrackListItemProps>(), {
 
 const trackStore = useTrackStore();
 const playerStore = usePlayerStore();
-const visibleStore = useModalsPool();
+const modalsStore = useModalsPool();
 
 // Track image loading state
 const imageError = ref<boolean>(false);
@@ -56,15 +56,15 @@ const pauseTrack = (): void => {
 };
 
 const handleEdit = (): void => {
-  visibleStore.addVisibleItem('TrackForm', { track: props.track });
+  modalsStore.addVisibleItem('TrackForm', { track: props.track });
 };
 
 const handleUpload = (): void => {
-  visibleStore.addVisibleItem('UploadTrackFile', { track: props.track });
+  modalsStore.addVisibleItem('UploadTrackFile', { track: props.track });
 };
 
 const handleDelete = (): void => {
-  visibleStore.addVisibleItem('DeleteTrack', { track: props.track });
+  modalsStore.addVisibleItem('DeleteTrack', { track: props.track });
 };
 
 const handleImageError = (): void => {

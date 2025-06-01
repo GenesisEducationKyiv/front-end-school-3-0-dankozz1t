@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useNotificationStore } from '@/stores/notification';
+import { useNotificationStore } from '@/shared/modules/notification/store/notification';
 
 const notificationStore = useNotificationStore();
 </script>

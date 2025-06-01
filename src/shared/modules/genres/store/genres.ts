@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
 
-import api from '@/services/genres';
+import { genresApi } from '@/shared/modules/genres/api/genresApi';
 
 export interface GenresState {
   genres: Ref<string[]>;
@@ -9,17 +9,14 @@ export interface GenresState {
 }
 
 export const useGenresStore = defineStore('genres', () => {
-  // State
   const genres = ref<string[]>([]);
   const loading = ref<boolean>(false);
 
-  /**
-   * Fetch all available genres
-   */
   async function fetchGenres(): Promise<void> {
     loading.value = true;
+
     try {
-      genres.value = await api.getAllGenres();
+      genres.value = await genresApi.getAllGenres();
     } catch (error) {
       console.error('Error fetching genres:', error);
       throw error;

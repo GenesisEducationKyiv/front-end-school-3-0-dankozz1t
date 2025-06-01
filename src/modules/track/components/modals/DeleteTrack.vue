@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, computed, type ComputedRef } from 'vue';
-import { useNotificationStore } from '@/stores/notification';
+import { useNotificationStore } from '@/shared/modules/notification/store/notification';
 import { useTrackStore } from '@/modules/track/store/trackStore';
-import { useModalsPool } from '@/stores/modalsPool';
+import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import { type Track } from '@/modules/track/types';
 
 const props = withDefaults(
@@ -16,7 +16,7 @@ const props = withDefaults(
   }
 );
 
-const visibleStore = useModalsPool();
+const modalsStore = useModalsPool();
 
 const trackStore = useTrackStore();
 const notificationStore = useNotificationStore();
@@ -50,7 +50,7 @@ const confirmDelete = async (): Promise<void> => {
 };
 
 const closeDialog = (): void => {
-  visibleStore.removeVisibleItem('DeleteTrack');
+  modalsStore.removeVisibleItem('DeleteTrack');
 };
 </script>
 

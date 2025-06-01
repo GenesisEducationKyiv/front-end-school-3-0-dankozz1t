@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useModalsPool } from '@/stores/modalsPool';
 
-const visibleStore = useModalsPool();
+const modalsStore = useModalsPool();
 
 const openCreateTrackForm = (): void => {
-  visibleStore.addVisibleItem('TrackForm');
+  modalsStore.addVisibleItem('TrackForm');
 };
 </script>
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue';
-import { useTrackStore } from '../store/trackStore';
-import { useGenresStore } from '@/stores/genres';
+import { useTrackStore } from '@/modules/track/store/trackStore';
+import { useGenresStore } from '@/shared/modules/genres/store/genres';
 
 const trackStore = useTrackStore();
 const genresStore = useGenresStore();

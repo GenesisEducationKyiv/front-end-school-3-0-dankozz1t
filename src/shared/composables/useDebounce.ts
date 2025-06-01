@@ -1,8 +1,5 @@
 import { ref, watch, onBeforeUnmount, type Ref } from 'vue';
 
-/**
- * Debounce interface representing the return values
- */
 export interface DebounceReturn<T> {
   value: Ref<T>;
   debouncedValue: Ref<T>;
@@ -38,7 +35,6 @@ export function useDebounce<T>(initialValue: T, delay = 500): DebounceReturn<T> 
     { immediate: true }
   );
 
-  // Clean up the timeout when the component is unmounted
   onBeforeUnmount(() => {
     clearDebounceTimeout();
   });

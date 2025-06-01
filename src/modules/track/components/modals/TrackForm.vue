@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, type ComputedRef } from 'vue';
-import { useNotificationStore } from '@/stores/notification';
+import { useNotificationStore } from '@/shared/modules/notification/store/notification';
 import { useTrackStore } from '@/modules/track/store/trackStore';
-import { useModalsPool } from '@/stores/modalsPool';
-import { useGenresStore } from '@/stores/genres';
+import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
+import { useGenresStore } from '@/shared/modules/genres/store/genres';
 import { type Track, type TrackFormData } from '@/modules/track/types';
 
 const props = withDefaults(
@@ -15,7 +15,7 @@ const props = withDefaults(
   }
 );
 
-const visibleStore = useModalsPool();
+const modalsStore = useModalsPool();
 const trackStore = useTrackStore();
 const notificationStore = useNotificationStore();
 const genresStore = useGenresStore();
@@ -81,7 +81,7 @@ const submitForm = async (): Promise<void> => {
 };
 
 const closeDialog = (): void => {
-  visibleStore.removeVisibleItem('TrackForm');
+  modalsStore.removeVisibleItem('TrackForm');
 };
 </script>
 
