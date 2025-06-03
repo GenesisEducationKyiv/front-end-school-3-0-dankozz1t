@@ -39,3 +39,6 @@ It was decided to use Vuetify as the main UI component library. Choice justifica
 ## Improvements
 - Optimization of component imports to reduce bundle size
 - Implementation of Storybook for UI components 
+
+---
+Go to Back - [All decisions](../README.md)

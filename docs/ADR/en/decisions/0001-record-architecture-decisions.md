@@ -44,3 +44,6 @@ It was decided to use the Architecture Decision Records (ADR) format for documen
 - Automation of the ADR creation process
 - Integration with version control system
 - Implementation of regular ADR review (quarterly) 
+
+---
+Go to Back - [All decisions](../README.md)

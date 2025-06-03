@@ -33,3 +33,6 @@
 ## Improvements
 - Впровадження retry-логіки для запитів
 - Впровадження глобального обробника помилок
+
+---
+Go to Back - [All decisions](../README.md)

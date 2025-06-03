@@ -33,3 +33,6 @@ It was decided to use Axios for all HTTP requests in the application. Choice jus
 ## Improvements
 - Implementation of retry logic for requests
 - Implementation of global error handler 
+
+---
+Go to Back - [All decisions](../README.md)

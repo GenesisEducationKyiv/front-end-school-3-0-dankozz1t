@@ -42,3 +42,6 @@
 
 ## Improvements
 - Додавання ARIA-атрибутів для доступності
+
+---
+Go to Back - [All decisions](../README.md)

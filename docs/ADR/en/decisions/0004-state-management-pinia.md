@@ -47,3 +47,6 @@ It was decided to use Pinia for centralized state management in the application.
 - Creating templates for typical stores
 - Developing utilities to simplify working with Pinia
 - Documenting best practices 
+
+---
+Go to Back - [All decisions](../README.md)

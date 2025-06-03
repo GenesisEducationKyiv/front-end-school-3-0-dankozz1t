@@ -56,3 +56,6 @@ src/
 ## Improvements
 - Creating templates for new components
 - Documentation with component usage examples 
+
+---
+Go to Back - [All decisions](../README.md)

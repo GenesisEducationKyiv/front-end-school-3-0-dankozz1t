@@ -42,3 +42,6 @@ It was decided to use VisiblePool for managing modal windows.
 
 ## Improvements
 - Adding ARIA attributes for accessibility 
+
+---
+Go to Back - [All decisions](../README.md)

@@ -39,3 +39,6 @@
 ## Improvements
 - Оптимізація імпорту компонентів для зменшення bundle size
 - Впровадження Storybook для UI компонентів
+
+---
+Go to Back - [All decisions](../README.md)

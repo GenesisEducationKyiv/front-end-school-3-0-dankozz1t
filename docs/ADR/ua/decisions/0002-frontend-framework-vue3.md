@@ -54,3 +54,6 @@
 
 ## Improvements
 - Регулярне оновлення до нових версій Vue
+
+---
+Go to Back - [All decisions](../README.md)

@@ -53,3 +53,6 @@ It was decided to use Vue.js 3 with Composition API as the main frontend framewo
 
 ## Improvements
 - Regular updates to new Vue versions 
+
+---
+Go to Back - [All decisions](../README.md)

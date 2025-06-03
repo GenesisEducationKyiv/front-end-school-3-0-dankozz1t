@@ -47,3 +47,6 @@
 - Створення шаблонів для типових store
 - Розробка утиліт для спрощення роботи з Pinia
 - Документування best practices
+
+---
+Go to Back - [All decisions](../README.md)

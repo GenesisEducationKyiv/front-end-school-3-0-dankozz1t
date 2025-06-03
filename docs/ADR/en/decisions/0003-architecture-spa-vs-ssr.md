@@ -40,3 +40,6 @@ It was decided to use SPA (Single Page Application) architecture instead of SSR 
 - Implementation of PWA functionality
 - Optimization of initial loading
 - SEO improvement through pre-rendering 
+
+---
+Go to Back - [All decisions](../README.md)

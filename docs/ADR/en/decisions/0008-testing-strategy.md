@@ -41,3 +41,6 @@ It was decided to use a combination of different types of tests using Vitest.
 - Automation of test execution
 - Coverage improvement
 - Speed optimization 
+
+---
+Go to Back - [All decisions](../README.md)
