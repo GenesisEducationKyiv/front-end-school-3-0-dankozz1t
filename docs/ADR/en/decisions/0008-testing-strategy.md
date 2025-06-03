@@ -29,9 +29,11 @@ It was decided to use a combination of different types of tests using Vitest.
    - Checking rendering, props, events
 
 ## Consequences
+##### Positive
 - High code quality
 - Functional stability
 - Easy refactoring
+##### Negative
 - Additional time costs
 - Complexity of test maintenance
 - Possible false positives

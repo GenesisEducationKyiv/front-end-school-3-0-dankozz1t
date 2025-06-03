@@ -26,10 +26,12 @@ It was decided to use Vuetify as the main UI component library. Choice justifica
    - Easy integration with Vue 3
 
 ## Consequences
+##### Positive
 - High UI/UX quality
 - Fast development start
 - Easy to maintain and extend the interface
 - Customization and theming possibilities
+##### Negative
 - Worsens onboarding for developers without Vuetify experience
 - Complexity with heavily customized components
 - Dependency on Vuetify roadmap (updates can break things)

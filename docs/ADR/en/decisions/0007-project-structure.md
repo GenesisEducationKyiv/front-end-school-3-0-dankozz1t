@@ -46,10 +46,12 @@ src/
    - Module tests
 
 ## Consequences
+##### Positive
 - Clear structure simplifies navigation through the project
 - Easy to find and reuse code
 - Simplified onboarding of new developers
 - Better project scalability
+##### Negative
 - Possible excessive module separation for small components
 - Additional time costs for proper file placement
 
