@@ -14,11 +14,11 @@ import GlobalAudioPlayer from '@/modules/player/components/GlobalAudioPlayer.vue
     </v-main>
 
     <v-footer app class="d-flex flex-column" color="primary" dark>
-      <div class="d-flex w-100 align-center">
+      <v-container class="pa-0">
         <GlobalAudioPlayer class="w-100" />
-      </div>
+      </v-container>
 
-      <div class="text-center" cols="12">
+      <div class="text-center mt-2" cols="12">
         &#169; {{ new Date().getFullYear() }} — <strong>Alex Taylor Danko</strong>
       </div>
     </v-footer>

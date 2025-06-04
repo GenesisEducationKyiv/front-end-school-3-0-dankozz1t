@@ -47,18 +47,18 @@ const volumeValue = computed({
 </script>
 
 <template>
-  <div v-if="hasAudioLoaded" class="global-player">
-    <v-card class="w-100" elevation="8">
-      <v-row noGutters align="center" class="pa-4">
+  <div v-if="hasAudioLoaded">
+    <v-card class="w-100 pa-0" elevation="8" rounded="lg">
+      <v-row noGutters align="center" class="pa-3">
         <!-- Track Info -->
-        <v-col cols="12" md="3" class="d-flex align-center">
+        <v-col cols="12" md="4" class="d-flex align-center">
           <v-img
             :src="currentTrack?.coverImage || 'https://via.placeholder.com/60?text=No+Cover'"
             :alt="currentTrack?.title || 'Unknown Track'"
-            height="60"
-            width="60"
             cover
-            class="mr-3"
+            height="100"
+            width="100"
+            class="mr-3 player__image rounded-lg"
           />
           <div class="text-truncate">
             <div class="text-subtitle-1 font-weight-bold text-truncate">
@@ -74,7 +74,7 @@ const volumeValue = computed({
         </v-col>
 
         <!-- Player Controls -->
-        <v-col cols="12" md="6" class="d-flex flex-column align-center">
+        <v-col cols="12" md="5" class="d-flex flex-column align-center">
           <div class="d-flex align-center justify-center mb-2">
             <v-btn
               icon="mdi-skip-previous"
@@ -154,20 +154,7 @@ const volumeValue = computed({
 </template>
 
 <style scoped>
-.global-player {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: auto;
-  background-color: var(--v-surface-base);
-  border-top: 1px solid var(--v-border-color);
-  z-index: 1000;
-}
-
-@media (max-width: 960px) {
-  .global-player {
-    position: static;
-  }
+.player__image {
+  max-width: 250px;
 }
 </style>
