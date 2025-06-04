@@ -36,14 +36,19 @@ It was decided to use Pinia for centralized state management in the application.
    - Active community
 
 ## Consequences
+##### Positive
 - Simple development and maintenance process
 - Easy state management scaling
 - Effective work with TypeScript
 - Convenient store testing
 - Good performance
+##### Negative
 - Fewer ready-made solutions for edge-cases compared to Redux
 
 ## Improvements
 - Creating templates for typical stores
 - Developing utilities to simplify working with Pinia
 - Documenting best practices 
+
+---
+Go to Back - [All decisions](../README.md)

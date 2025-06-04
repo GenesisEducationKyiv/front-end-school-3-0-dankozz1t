@@ -42,14 +42,19 @@ It was decided to use Vue.js 3 with Composition API as the main frontend framewo
    - Regular updates and support
 
 ## Consequences
+##### Positive
 - High quality and code stability
 - Easy project scaling
 - Fast development of new features
 - Simple onboarding for new developers
 - Good application performance
+##### Negative
 - Fewer ready-made solutions compared to React
 - Difficulty finding experts in the job market
 - Possible compatibility issues with some libraries
 
 ## Improvements
 - Regular updates to new Vue versions 
+
+---
+Go to Back - [All decisions](../README.md)

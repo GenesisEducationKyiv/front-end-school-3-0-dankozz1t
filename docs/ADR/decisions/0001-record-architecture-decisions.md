@@ -32,11 +32,13 @@ It was decided to use the Architecture Decision Records (ADR) format for documen
 - Indicate connections with other ADRs
 
 ## Consequences
+##### Positive
 - Transparency in the decision-making process
 - Documentation of decision justification
 - Easy tracking of change history
 - Simplified onboarding for new developers
 - Ability to review and reassess decisions
+##### Negative
 - Additional time costs for documentation
 - Need to maintain documentation relevance
 
@@ -44,3 +46,6 @@ It was decided to use the Architecture Decision Records (ADR) format for documen
 - Automation of the ADR creation process
 - Integration with version control system
 - Implementation of regular ADR review (quarterly) 
+
+---
+Go to Back - [All decisions](../README.md)

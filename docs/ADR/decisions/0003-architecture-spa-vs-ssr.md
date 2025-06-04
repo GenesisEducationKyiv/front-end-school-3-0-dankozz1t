@@ -27,11 +27,13 @@ It was decided to use SPA (Single Page Application) architecture instead of SSR 
    - Additional costs for server infrastructure
 
 ## Consequences
+##### Positive
 - Fast user interaction with the application
 - Simple deployment and maintenance process
 - Easy integration of new libraries
 - Reduced time-to-market for new features
 - Lower server infrastructure requirements
+##### Negative
 - SEO limitations
 - Possible issues with first render
 - Difficulty scaling to other platforms
@@ -40,3 +42,6 @@ It was decided to use SPA (Single Page Application) architecture instead of SSR 
 - Implementation of PWA functionality
 - Optimization of initial loading
 - SEO improvement through pre-rendering 
+
+---
+Go to Back - [All decisions](../README.md)

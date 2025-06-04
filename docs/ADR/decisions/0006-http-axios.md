@@ -23,13 +23,18 @@ It was decided to use Axios for all HTTP requests in the application. Choice jus
    - Ky: less popularity
 
 ## Consequences
+##### Positive
 - Easy to maintain and extend API logic
 - Possibility of centralized logging and error handling
 - Easy to test HTTP requests
 - Flexible configuration for different environments
+##### Negative
 - Library weight
 - Requires regular updates for security
 
 ## Improvements
 - Implementation of retry logic for requests
 - Implementation of global error handler 
+
+---
+Go to Back - [All decisions](../README.md)

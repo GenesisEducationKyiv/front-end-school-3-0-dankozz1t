@@ -32,13 +32,18 @@ It was decided to use ModalsPool for managing modal windows.
    - Custom implementation: full control, optimized for project needs
 
 ## Consequences
+##### Positive
 - Centralized modal window management
 - Type-safe API through TypeScript
 - Easy testing through isolated store
 - Possibility of modal window nesting
 - Control of z-index and focus
+##### Negative
 - Potential accessibility issues
 - Potential SSR issues
 
 ## Improvements
 - Adding ARIA attributes for accessibility 
+
+---
+Go to Back - [All decisions](../README.md)
