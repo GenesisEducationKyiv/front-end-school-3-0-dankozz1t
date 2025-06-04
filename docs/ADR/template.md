@@ -40,3 +40,6 @@
 - [Improvement 3]
 - [Improvement 4]
 - [Improvement 5] 
+
+---
+Go to Back - [All decisions](./README.md)
