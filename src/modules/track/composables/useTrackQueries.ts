@@ -1,4 +1,5 @@
 import { ref, computed, type Ref, type ComputedRef } from 'vue';
+import { O, pipe } from '@mobily/ts-belt';
 import type {
   QueryParams,
   TrackFilters,
@@ -33,6 +34,16 @@ export interface UseTrackQueriesReturn {
   goToPage: (page: number) => void;
   nextPage: () => void;
   previousPage: () => void;
+  setFilters: (
+    filters: Partial<
+      TrackFilters & {
+        sortBy: string;
+        sortOrder: TrackSortOrder;
+        page: number;
+        itemsPerPage: number;
+      }
+    >
+  ) => void;
 }
 
 export function useTrackQueries(): UseTrackQueriesReturn {
@@ -88,6 +99,7 @@ export function useTrackQueries(): UseTrackQueriesReturn {
     sortBy.value = 'createdAt';
     sortOrder.value = 'desc';
     currentPage.value = 1;
+    itemsPerPage.value = 10;
   }
 
   function updateSearchQuery(query: string): void {
@@ -138,6 +150,56 @@ export function useTrackQueries(): UseTrackQueriesReturn {
     }
   }
 
+  function setFilters(
+    filters: Partial<
+      TrackFilters & {
+        sortBy: string;
+        sortOrder: TrackSortOrder;
+        page: number;
+        itemsPerPage: number;
+      }
+    >
+  ): void {
+    pipe(filters, f => {
+      pipe(
+        f.searchQuery,
+        O.fromNullable,
+        O.map(value => (searchQuery.value = value))
+      );
+      pipe(
+        f.selectedGenre,
+        O.fromNullable,
+        O.map(value => (selectedGenre.value = value))
+      );
+      pipe(
+        f.selectedArtist,
+        O.fromNullable,
+        O.map(value => (selectedArtist.value = value))
+      );
+      pipe(
+        f.sortBy,
+        O.fromNullable,
+        O.map(value => (sortBy.value = value))
+      );
+      pipe(
+        f.sortOrder,
+        O.fromNullable,
+        O.map(value => (sortOrder.value = value))
+      );
+      pipe(
+        f.page,
+        O.fromNullable,
+        O.map(value => (currentPage.value = value))
+      );
+      pipe(
+        f.itemsPerPage,
+        O.fromNullable,
+        O.map(value => (itemsPerPage.value = value))
+      );
+      return f;
+    });
+  }
+
   return {
     // State
     searchQuery,
@@ -164,5 +226,6 @@ export function useTrackQueries(): UseTrackQueriesReturn {
     goToPage,
     nextPage,
     previousPage,
+    setFilters,
   };
 }
