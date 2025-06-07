@@ -14,6 +14,7 @@ export const useTrackStore = defineStore('track', () => {
   const tracks = ref<Track[]>([]);
   const totalTracks = ref<number>(0);
   const loading = ref<boolean>(false);
+  const isFetching = ref<boolean>(false);
   const isInitializing = ref<boolean>(true);
 
   // === COMPOSABLES ===
@@ -153,12 +154,13 @@ export const useTrackStore = defineStore('track', () => {
 
   // === API ACTIONS ===
   async function fetchTracks(): Promise<void> {
-    if (loading.value) {
+    if (isFetching.value) {
       console.log('fetchTracks: Already loading, skipping...');
       return;
     }
 
     loading.value = true;
+    isFetching.value = true;
     try {
       const params = trackQueries.buildQueryParams();
 
@@ -176,6 +178,7 @@ export const useTrackStore = defineStore('track', () => {
       throw error;
     } finally {
       loading.value = false;
+      isFetching.value = false;
     }
   }
 
