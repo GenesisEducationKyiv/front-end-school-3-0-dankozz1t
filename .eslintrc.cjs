@@ -33,7 +33,6 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/no-unused-vars': ['warn', { varsIgnorePattern: 'props|emits' }],
-    'tailwindcss/no-custom-classname': 'off',
     'key-spacing': [1, { beforeColon: false, afterColon: true }],
     'keyword-spacing': [1, { before: true, after: true }],
     'block-spacing': [1, 'always'],

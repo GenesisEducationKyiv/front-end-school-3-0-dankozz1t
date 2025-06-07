@@ -32,8 +32,8 @@ vi.mock('../../src/stores/tracks', () => ({
   useTracksStore: vi.fn(() => mockTracksStore),
 }));
 
-vi.mock('../../src/stores/visiblePool', () => ({
-  useVisiblePool: vi.fn(() => ({
+vi.mock('../../src/stores/modalsPool', () => ({
+  useModalsPool: vi.fn(() => ({
     addVisibleItem: vi.fn(),
   })),
 }));
@@ -114,11 +114,11 @@ describe('TrackList.vue', () => {
     const addVisibleItem = vi.fn();
 
     const mockViewModel = {
-      visibleStore: {
+      modalsStore: {
         addVisibleItem,
       },
       handleCreateTrack: function () {
-        this.visibleStore.addVisibleItem('TrackForm');
+        this.modalsStore.addVisibleItem('TrackForm');
       },
     };
 
@@ -134,12 +134,12 @@ describe('TrackList.vue', () => {
       tracksStore: {
         selectedTracks: ['1', '2'],
       },
-      visibleStore: {
+      modalsStore: {
         addVisibleItem,
       },
       handleBulkDelete: function () {
         if (this.tracksStore.selectedTracks.length > 0) {
-          this.visibleStore.addVisibleItem('DeleteTrack', {
+          this.modalsStore.addVisibleItem('DeleteTrack', {
             trackIds: this.tracksStore.selectedTracks,
           });
         }
