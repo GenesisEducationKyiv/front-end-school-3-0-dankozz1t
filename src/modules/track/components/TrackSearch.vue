@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { watch } from 'vue';
+import { computed } from 'vue';
 import { useTrackStore } from '@/modules/track/store/trackStore';
-import { useDebounce } from '@/shared/composables/useDebounce';
 
 const trackStore = useTrackStore();
 
-const { value: searchInput, debouncedValue: debouncedSearch } = useDebounce(
-  trackStore.searchQuery,
-  500
-);
-
-watch(debouncedSearch, async newSearch => {
-  trackStore.updateSearchQuery(newSearch);
-  await trackStore.fetchTracks();
+const searchInput = computed({
+  get: () => trackStore.searchQuery,
+  set: (value: string) => {
+    trackStore.updateSearchQuery(value);
+  },
 });
 </script>
 

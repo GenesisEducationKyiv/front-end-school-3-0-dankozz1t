@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import TrackListItem from './TrackListItem.vue';
@@ -8,10 +8,6 @@ const trackStore = useTrackStore();
 const modalsStore = useModalsPool();
 
 const bulkSelectMode = ref<boolean>(false);
-
-onMounted(async () => {
-  await trackStore.fetchTracks();
-});
 
 watch(
   () => trackStore.currentPage,

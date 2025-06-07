@@ -1,8 +1,12 @@
 <script setup lang="ts">
+import { useTrackStore } from '@/modules/track/store/trackStore';
 import TrackSummary from '@/modules/track/components/TrackSummary.vue';
 import TrackSearch from '@/modules/track/components/TrackSearch.vue';
 import TrackFilters from '@/modules/track/components/TrackFilters.vue';
 import TrackList from '@/modules/track/components/TrackList.vue';
+
+const trackStore = useTrackStore();
+trackStore.initializeStore();
 </script>
 
 <template>
