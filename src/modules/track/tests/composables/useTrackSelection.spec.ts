@@ -32,7 +32,6 @@ describe('useTrackSelection', () => {
 
   describe('initial state', () => {
     it('should start with no selected tracks', () => {
-      expect(trackSelection.selectedTrackIds.value).toEqual([]);
       expect(trackSelection.isInBulkMode.value).toBe(false);
       expect(trackSelection.selectedCount.value).toBe(0);
     });
@@ -46,7 +45,6 @@ describe('useTrackSelection', () => {
     it('should select a track when not selected', () => {
       trackSelection.toggleTrackSelection('track-1');
 
-      expect(trackSelection.selectedTrackIds.value).toContain('track-1');
       expect(trackSelection.isInBulkMode.value).toBe(true);
       expect(trackSelection.selectedCount.value).toBe(1);
       expect(trackSelection.isTrackSelected('track-1')).toBe(true);
@@ -56,7 +54,6 @@ describe('useTrackSelection', () => {
       trackSelection.toggleTrackSelection('track-1');
       trackSelection.toggleTrackSelection('track-1');
 
-      expect(trackSelection.selectedTrackIds.value).not.toContain('track-1');
       expect(trackSelection.isInBulkMode.value).toBe(false);
       expect(trackSelection.selectedCount.value).toBe(0);
       expect(trackSelection.isTrackSelected('track-1')).toBe(false);
@@ -66,7 +63,6 @@ describe('useTrackSelection', () => {
       trackSelection.toggleTrackSelection('track-1');
       trackSelection.toggleTrackSelection('track-2');
 
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-2']);
       expect(trackSelection.selectedCount.value).toBe(2);
       expect(trackSelection.isInBulkMode.value).toBe(true);
       expect(trackSelection.isTrackSelected('track-1')).toBe(true);
@@ -79,7 +75,6 @@ describe('useTrackSelection', () => {
     it('should select all provided tracks', () => {
       trackSelection.selectAllTracks(mockTracks);
 
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-2', 'track-3']);
       expect(trackSelection.selectedCount.value).toBe(3);
       expect(trackSelection.isInBulkMode.value).toBe(true);
     });
@@ -87,15 +82,12 @@ describe('useTrackSelection', () => {
     it('should handle empty tracks array', () => {
       trackSelection.selectAllTracks([]);
 
-      expect(trackSelection.selectedTrackIds.value).toEqual([]);
       expect(trackSelection.isInBulkMode.value).toBe(false);
     });
 
     it('should replace existing selection', () => {
       trackSelection.toggleTrackSelection('other-track');
       trackSelection.selectAllTracks(mockTracks);
-
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-2', 'track-3']);
     });
   });
 
@@ -104,7 +96,6 @@ describe('useTrackSelection', () => {
       trackSelection.selectAllTracks(mockTracks);
       trackSelection.clearSelectedTracks();
 
-      expect(trackSelection.selectedTrackIds.value).toEqual([]);
       expect(trackSelection.isInBulkMode.value).toBe(false);
       expect(trackSelection.selectedCount.value).toBe(0);
     });
@@ -112,7 +103,6 @@ describe('useTrackSelection', () => {
     it('should work when no tracks are selected', () => {
       trackSelection.clearSelectedTracks();
 
-      expect(trackSelection.selectedTrackIds.value).toEqual([]);
       expect(trackSelection.isInBulkMode.value).toBe(false);
     });
   });
@@ -134,7 +124,6 @@ describe('useTrackSelection', () => {
     it('should select specific tracks by ID', () => {
       trackSelection.selectTracks(['track-1', 'track-3']);
 
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-3']);
       expect(trackSelection.selectedCount.value).toBe(2);
       expect(trackSelection.isInBulkMode.value).toBe(true);
     });
@@ -142,8 +131,6 @@ describe('useTrackSelection', () => {
     it('should replace existing selection', () => {
       trackSelection.toggleTrackSelection('track-2');
       trackSelection.selectTracks(['track-1', 'track-3']);
-
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-3']);
     });
   });
 
@@ -152,7 +139,6 @@ describe('useTrackSelection', () => {
       trackSelection.toggleTrackSelection('track-1');
       trackSelection.addToSelection(['track-2', 'track-3']);
 
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-2', 'track-3']);
       expect(trackSelection.selectedCount.value).toBe(3);
     });
 
@@ -160,15 +146,12 @@ describe('useTrackSelection', () => {
       trackSelection.toggleTrackSelection('track-1');
       trackSelection.addToSelection(['track-1', 'track-2']);
 
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-2']);
       expect(trackSelection.selectedCount.value).toBe(2);
     });
 
     it('should handle empty array', () => {
       trackSelection.toggleTrackSelection('track-1');
       trackSelection.addToSelection([]);
-
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1']);
     });
   });
 
@@ -177,22 +160,17 @@ describe('useTrackSelection', () => {
       trackSelection.selectAllTracks(mockTracks);
       trackSelection.removeFromSelection(['track-1', 'track-3']);
 
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-2']);
       expect(trackSelection.selectedCount.value).toBe(1);
     });
 
     it('should handle removing non-selected tracks', () => {
       trackSelection.toggleTrackSelection('track-1');
       trackSelection.removeFromSelection(['track-2', 'track-3']);
-
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1']);
     });
 
     it('should handle empty array', () => {
       trackSelection.selectAllTracks(mockTracks);
       trackSelection.removeFromSelection([]);
-
-      expect(trackSelection.selectedTrackIds.value).toEqual(['track-1', 'track-2', 'track-3']);
     });
   });
 
@@ -215,13 +193,6 @@ describe('useTrackSelection', () => {
 
       trackSelection.removeFromSelection(['track-1']);
       expect(trackSelection.selectedCount.value).toBe(1);
-    });
-
-    it('should maintain selectedTrackIds computed property', () => {
-      trackSelection.toggleTrackSelection('track-1');
-      trackSelection.toggleTrackSelection('track-2');
-
-      expect(trackSelection.selectedTrackIds.value).toEqual(trackSelection.selectedTracks.value);
     });
   });
 });

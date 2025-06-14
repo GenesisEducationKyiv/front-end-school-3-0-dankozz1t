@@ -42,7 +42,6 @@ vi.mock('../../composables/useTrackQueries', () => ({
 vi.mock('../../composables/useTrackSelection', () => ({
   useTrackSelection: () => ({
     selectedTracks: { value: [] },
-    selectedTrackIds: { value: [] },
     isInBulkMode: { value: false },
     selectedCount: { value: 0 },
     toggleTrackSelection: vi.fn(),
