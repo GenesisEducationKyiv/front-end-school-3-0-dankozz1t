@@ -21,6 +21,7 @@
     "test": "vitest run --config vitest.config.ts"
   },
   "dependencies": {
+    "@mobily/ts-belt": "^3.13.1",
     "axios": "^1.6.7",
     "pinia": "^2.1.7",
     "vue": "^3.4.15",

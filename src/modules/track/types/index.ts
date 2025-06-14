@@ -65,10 +65,10 @@ export interface TrackFilters {
   selectedArtist: string | null;
 }
 
-export interface TrackSorting {
-  sortBy: string;
-  sortOrder: 'asc' | 'desc';
-}
-
 export type TrackSortField = NonNullable<QueryParams['sort']>;
 export type TrackSortOrder = NonNullable<QueryParams['order']>;
+
+export interface TrackSorting {
+  sortBy: TrackSortField;
+  sortOrder: TrackSortOrder;
+}
