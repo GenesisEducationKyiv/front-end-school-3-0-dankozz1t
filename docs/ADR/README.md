@@ -38,3 +38,7 @@ Each ADR should contain the following sections:
    - Use template [template.md](./template.md)
    - Assign unique number (NNNN-title.md)
    - Specify all necessary metadata 
+
+
+---
+Go to Back - [Global README](../../README.md)

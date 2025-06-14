@@ -36,5 +36,9 @@ It was decided to use Axios for all HTTP requests in the application. Choice jus
 - Implementation of retry logic for requests
 - Implementation of global error handler 
 
+--
+## Related ADRs
+- [0010 HTTP Client Security Analysis and Recommendations](0010-http-client-security-analysis.md) - This analysis supersedes the original axios decision from security perspective
+
 ---
 Go to Back - [All decisions](../README.md)
