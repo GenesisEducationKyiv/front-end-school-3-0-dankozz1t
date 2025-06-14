@@ -12,7 +12,7 @@ export interface UseTrackQueriesReturn {
   searchQuery: Ref<string>;
   selectedGenre: Ref<string | null>;
   selectedArtist: Ref<string | null>;
-  sortBy: Ref<string>;
+  sortBy: Ref<TrackSortField>;
   sortOrder: Ref<TrackSortOrder>;
   currentPage: Ref<number>;
   itemsPerPage: Ref<number>;
@@ -27,7 +27,7 @@ export interface UseTrackQueriesReturn {
   updateSearchQuery: (query: string) => void;
   updateGenreFilter: (genre: string | null) => void;
   updateArtistFilter: (artist: string | null) => void;
-  updateSorting: (field: string, order: TrackSortOrder) => void;
+  updateSorting: (field: TrackSortField, order: TrackSortOrder) => void;
   updatePage: (page: number) => void;
   updateItemsPerPage: (items: number) => void;
   goToPage: (page: number) => void;
@@ -40,7 +40,7 @@ export function useTrackQueries(): UseTrackQueriesReturn {
   const searchQuery = ref<string>('');
   const selectedGenre = ref<string | null>(null);
   const selectedArtist = ref<string | null>(null);
-  const sortBy = ref<string>('createdAt');
+  const sortBy = ref<TrackSortField>('createdAt');
   const sortOrder = ref<TrackSortOrder>('desc');
   const currentPage = ref<number>(1);
   const itemsPerPage = ref<number>(10);
@@ -62,7 +62,7 @@ export function useTrackQueries(): UseTrackQueriesReturn {
     const params: QueryParams = {
       page: currentPage.value,
       limit: itemsPerPage.value,
-      sort: sortBy.value as TrackSortField,
+      sort: sortBy.value,
       order: sortOrder.value,
     };
 
@@ -105,7 +105,7 @@ export function useTrackQueries(): UseTrackQueriesReturn {
     currentPage.value = 1;
   }
 
-  function updateSorting(field: string, order: TrackSortOrder): void {
+  function updateSorting(field: TrackSortField, order: TrackSortOrder): void {
     sortBy.value = field;
     sortOrder.value = order;
     currentPage.value = 1;

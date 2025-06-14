@@ -2,6 +2,7 @@
 import { computed, onMounted } from 'vue';
 import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useGenresStore } from '@/shared/modules/genres/store/genres';
+import type { TrackSortField, TrackSortOrder } from '../types';
 
 const trackStore = useTrackStore();
 const genresStore = useGenresStore();
@@ -36,7 +37,7 @@ const selectedArtist = computed({
 
 const sortBy = computed({
   get: () => trackStore.sortBy,
-  set: async (value: string) => {
+  set: async (value: TrackSortField) => {
     trackStore.updateSorting(value, trackStore.sortOrder);
     await trackStore.fetchTracks();
   },
@@ -59,7 +60,7 @@ const hasActiveFilters = computed(() => {
   return trackStore.selectedGenre || trackStore.selectedArtist || trackStore.searchQuery;
 });
 
-const sortOptions = [
+const sortOptions: { title: string; value: TrackSortField; order: TrackSortOrder }[] = [
   { title: 'Date Added (Newest)', value: 'createdAt', order: 'desc' },
   { title: 'Date Added (Oldest)', value: 'createdAt', order: 'asc' },
   { title: 'Title (A-Z)', value: 'title', order: 'asc' },
