@@ -63,7 +63,7 @@
 ## Recommendations
 
 **Security Improvements:**
-- Replace axios with native Fetch API (or Ky) to reduce bundle size and eliminate supply chain risks
+- Replace axios with native Fetch API (or Ky) - detailed analysis available in [ADR-0010: HTTP Client Security Analysis](../../ADR/decisions/0010-http-client-security-analysis.md)
 - Set up Snyk for enhanced vulnerability monitoring (No installation rights to the Genesis github repository)
 - Update outdated development dependencies for latest security patches
 
