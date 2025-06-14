@@ -11,24 +11,3 @@ $warning: #ffc107;
 $font-family: 'Roboto', sans-serif;
 $font-size-base: 16px;
 $line-height-base: 1.5;
-
-// Spacing
-$spacing-unit: 8px;
-$spacing-xs: $spacing-unit;
-$spacing-sm: $spacing-unit * 2;
-$spacing-md: $spacing-unit * 3;
-$spacing-lg: $spacing-unit * 4;
-$spacing-xl: $spacing-unit * 5;
-
-// Breakpoints
-$breakpoint-xs: 0;
-$breakpoint-sm: 600px;
-$breakpoint-md: 960px;
-$breakpoint-lg: 1264px;
-$breakpoint-xl: 1904px;
-
-// Z-index
-$z-index-drawer: 1000;
-$z-index-dialog: 2000;
-$z-index-snackbar: 3000;
-$z-index-tooltip: 4000;

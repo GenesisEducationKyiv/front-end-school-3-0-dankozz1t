@@ -1,30 +1,25 @@
 <script setup lang="ts">
-import AppNotification from '@/components/Base/AppNotification.vue';
-import { useVisiblePool } from '@/stores/visiblePool';
+import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import { storeToRefs } from 'pinia';
 
-const visibleStore = useVisiblePool();
-const { visiblePool } = storeToRefs(visibleStore);
+import AppNotification from '@/shared/modules/notification/components/AppNotification.vue';
+
+const modalsStore = useModalsPool();
+const { modalsPool } = storeToRefs(modalsStore);
 </script>
 
 <template>
-  <v-app>
+  <v-container fluid>
     <router-view />
 
     <AppNotification />
 
+    <!-- Dynamic modals -->
     <component
       :is="item.component"
-      v-for="item in visiblePool"
+      v-for="item in modalsPool"
       :key="item.name"
       v-bind="item?.data"
     />
-  </v-app>
+  </v-container>
 </template>
-
-<style>
-.v-main {
-  min-height: 100vh;
-  padding-bottom: 80px; /* Space for the global audio player */
-}
-</style>
