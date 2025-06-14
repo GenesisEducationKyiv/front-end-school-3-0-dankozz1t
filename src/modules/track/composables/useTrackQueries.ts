@@ -37,7 +37,7 @@ export interface UseTrackQueriesReturn {
   setFilters: (
     filters: Partial<
       TrackFilters & {
-        sortBy: string;
+        sortBy: TrackSortField;
         sortOrder: TrackSortOrder;
         page: number;
         itemsPerPage: number;
@@ -153,7 +153,7 @@ export function useTrackQueries(): UseTrackQueriesReturn {
   function setFilters(
     filters: Partial<
       TrackFilters & {
-        sortBy: string;
+        sortBy: TrackSortField;
         sortOrder: TrackSortOrder;
         page: number;
         itemsPerPage: number;

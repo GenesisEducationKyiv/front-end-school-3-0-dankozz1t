@@ -45,7 +45,7 @@ const sortBy = computed({
 
 const sortOrder = computed({
   get: () => trackStore.sortOrder,
-  set: async (value: 'asc' | 'desc') => {
+  set: async (value: TrackSortOrder) => {
     trackStore.updateSorting(trackStore.sortBy, value);
     await trackStore.fetchTracks();
   },
@@ -88,7 +88,7 @@ const sortOptionsWithKeys = computed(() => {
 const updateSort = async (key: string): Promise<void> => {
   const option = sortOptions.find(opt => `${opt.value}-${opt.order}` === key);
   if (option) {
-    trackStore.updateSorting(option.value, option.order as 'asc' | 'desc');
+    trackStore.updateSorting(option.value, option.order);
     await trackStore.fetchTracks();
   }
 };

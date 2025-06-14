@@ -1,14 +1,14 @@
 import { ref, watch, type Ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { O, pipe } from '@mobily/ts-belt';
+import { O, pipe, type Option } from '@mobily/ts-belt';
 import { useDebounce } from '@/shared/composables/useDebounce';
-import type { TrackSortOrder } from '../types';
+import type { TrackSortField, TrackSortOrder } from '../types';
 
 export interface UrlFilters {
   search?: string;
   genre?: string;
   artist?: string;
-  sortBy?: string;
+  sortBy?: TrackSortField;
   sortOrder?: TrackSortOrder;
   page?: number;
   itemsPerPage?: number;
@@ -27,8 +27,8 @@ export function useUrlFilters(): UseUrlFiltersReturn {
   const route = useRoute();
   const isInitialized = ref(false);
 
-  const getQueryParam = (key: string) =>
-    pipe(
+  const getQueryParam = (key: string): Option<string> => {
+    return pipe(
       route.query[key],
       O.fromNullable,
       O.flatMap(value => (Array.isArray(value) ? pipe(value[0], O.fromNullable) : O.Some(value))),
@@ -36,6 +36,7 @@ export function useUrlFilters(): UseUrlFiltersReturn {
         typeof value === 'string' && value.trim() !== '' ? O.Some(value.trim()) : O.None
       )
     );
+  };
 
   const parseToNumber = (value: string) =>
     pipe(parseInt(value, 10), parsed => (isNaN(parsed) ? O.None : O.Some(parsed)));
@@ -65,7 +66,7 @@ export function useUrlFilters(): UseUrlFiltersReturn {
         return artist;
       });
       O.map(getQueryParam('sortBy'), sortBy => {
-        filters.sortBy = sortBy;
+        filters.sortBy = sortBy as TrackSortField;
         return sortBy;
       });
 
