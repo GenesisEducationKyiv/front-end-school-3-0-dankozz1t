@@ -8,8 +8,6 @@ export function useTrackSelection() {
   // === COMPUTED ===
   const isInBulkMode: ComputedRef<boolean> = computed(() => selectedTracks.value.length > 0);
 
-  const selectedTrackIds: ComputedRef<string[]> = computed(() => selectedTracks.value);
-
   const selectedCount: ComputedRef<number> = computed(() => selectedTracks.value.length);
 
   // === METHODS ===
@@ -53,7 +51,6 @@ export function useTrackSelection() {
 
     // Computed
     isInBulkMode,
-    selectedTrackIds,
     selectedCount,
 
     // Methods

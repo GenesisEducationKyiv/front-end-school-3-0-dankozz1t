@@ -28,7 +28,6 @@ const createMockTrack = (overrides: Partial<Track> = {}): Track => ({
 });
 
 interface MockTrackStore {
-  selectedTrackIds: string[];
   isInBulkMode: boolean;
   toggleTrackSelection: ReturnType<typeof vi.fn>;
   deleteTrack: ReturnType<typeof vi.fn>;
@@ -71,7 +70,6 @@ describe('TrackListItem', () => {
     setActivePinia(pinia);
 
     mockTrackStore = {
-      selectedTrackIds: [],
       isInBulkMode: false,
       toggleTrackSelection: vi.fn(),
       deleteTrack: vi.fn(),
