@@ -36,5 +36,8 @@ To run all tests:
 npm test
 ```
 
-# Music Manager Architecture Decision Records (ADR)
+## Music Manager Architecture Decision Records (ADR)
 - [docs -> ADR ->  README.md](./docs/ADR/README.md) —  All architectural decisions 
+
+## Music Manager Security Audit 
+- [docs -> security-audit ->  README.md](./docs/security-audit/README.md) —  Security Report
