@@ -4,9 +4,13 @@ import { useNotificationStore } from '@/shared/modules/notification/store/notifi
 import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import { type Track } from '@/modules/track/types';
-import type { XOR } from '@/shared/types';
 
-const props = defineProps<XOR<{ track: Track }, { trackIds: string[] }>>();
+interface DeleteTrackProps {
+  track?: Track;
+  trackIds?: string[];
+}
+
+const props = defineProps<DeleteTrackProps>();
 
 const modalsStore = useModalsPool();
 
