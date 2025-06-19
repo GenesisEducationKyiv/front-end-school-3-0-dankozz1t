@@ -8,11 +8,18 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
+    exclude: [
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/cypress/**',
+      '**/.{idea,git,cache,output,temp}/**',
+      '**/tests/component/**', // Exclude Playwright component tests
+      '**/tests/e2e/**', // Exclude Playwright E2E tests
+    ],
   },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
-      '@tests': fileURLToPath(new URL('./tests', import.meta.url)),
     },
   },
 });

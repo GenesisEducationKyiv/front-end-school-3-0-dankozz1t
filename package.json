@@ -18,7 +18,12 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "test": "vitest run --config vitest.config.ts"
+    "test": "vitest run --config vitest.config.ts",
+    "test:unit": "vitest run tests/unit --config vitest.config.ts",
+    "test:integration": "vitest run tests/integration --config vitest.config.ts",
+    "test:component": "playwright test --config playwright-ct.config.ts",
+    "test:e2e": "playwright test --config playwright.config.ts",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:component && npm run test:e2e"
   },
   "dependencies": {
     "@mobily/ts-belt": "3.13.1",
@@ -31,6 +36,8 @@
   },
   "devDependencies": {
     "@mdi/font": "7.4.47",
+    "@playwright/experimental-ct-vue": "1.53.1",
+    "@playwright/test": "1.53.1",
     "@rushstack/eslint-patch": "1.8.0",
     "@stylistic/eslint-plugin-ts": "2.11.0",
     "@tsconfig/node20": "20.1.4",
