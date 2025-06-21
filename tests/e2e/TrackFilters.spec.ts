@@ -1,3 +1,9 @@
+/**
+ * END-TO-END TEST: PLAYWRIGHT
+ * Tests the TrackFilters component in a real browser environment with mocked API responses.
+ * Verifies complete user workflows, UI interactions, and cross-component functionality.
+ */
+
 import { test, expect, Page } from '@playwright/test';
 
 class TrackFiltersPage {

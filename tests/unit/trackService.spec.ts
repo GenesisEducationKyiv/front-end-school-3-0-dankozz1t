@@ -1,8 +1,10 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-
 /**
- * UNIT TEST: WHITEBOX TESTING WITH MOCKS
+ * UNIT TEST: VITEST - WHITEBOX TESTING WITH MOCKS
+ * Tests the TrackService class with full knowledge of internal implementation.
+ * Verifies internal method calls, data transformations, validation logic, and error flows.
  */
+
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 const mockHttp = {
   get: vi.fn(),
   post: vi.fn(),

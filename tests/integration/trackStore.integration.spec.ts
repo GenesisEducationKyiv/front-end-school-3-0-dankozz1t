@@ -1,9 +1,14 @@
+/**
+ * INTEGRATION TEST: VITEST
+ * Tests the trackStore integration with mocked API layer and composables.
+ * Verifies end-to-end store workflows, data flow, and multi-component interactions.
+ */
+
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createPinia, setActivePinia } from 'pinia';
 import { useTrackStore } from '../../src/modules/track/store/trackStore';
 import type { Track, TrackFormData, PaginatedResponse } from '../../src/modules/track/types';
 
-// Mock the entire trackApi module
 vi.mock('../../src/modules/track/api/trackApi', () => ({
   trackApi: {
     getAllTracks: vi.fn(),
@@ -16,7 +21,6 @@ vi.mock('../../src/modules/track/api/trackApi', () => ({
   },
 }));
 
-// Mock router
 vi.mock('vue-router', () => ({
   useRouter: vi.fn(() => ({
     push: vi.fn(),
@@ -30,7 +34,6 @@ vi.mock('vue-router', () => ({
   })),
 }));
 
-// Mock composables that depend on router
 vi.mock('../../src/modules/track/composables/useUrlFilters', () => ({
   useUrlFilters: vi.fn(() => ({
     initializeFromUrl: vi.fn(() => ({})),
@@ -41,7 +44,6 @@ vi.mock('../../src/modules/track/composables/useUrlFilters', () => ({
   })),
 }));
 
-// Import the mocked trackApi after the mock
 import { trackApi } from '../../src/modules/track/api/trackApi';
 
 const mockTrackApi = trackApi as any;
@@ -71,7 +73,7 @@ const createMockTrackFormData = (overrides: Partial<TrackFormData> = {}): TrackF
 
 describe('TrackStore Integration Tests', () => {
   let pinia: ReturnType<typeof createPinia>;
-  let store: any; // Use any to avoid complex typing issues
+  let store: any; 
 
   beforeEach(() => {
     pinia = createPinia();
@@ -103,15 +105,12 @@ describe('TrackStore Integration Tests', () => {
 
       mockTrackApi.getAllTracks.mockResolvedValue(mockResponse);
 
-      // Initial state should be empty
       expect(store.tracks).toEqual([]);
       expect(store.totalTracks).toBe(0);
       expect(store.loading).toBe(false);
 
-      // Fetch tracks
       await store.fetchTracks();
 
-      // Verify state is updated
       expect(store.tracks).toEqual(mockTracks);
       expect(store.totalTracks).toBe(2);
       expect(store.loading).toBe(false);
@@ -123,10 +122,8 @@ describe('TrackStore Integration Tests', () => {
       const createdTrack = createMockTrack({ id: 'new-track', title: 'New Track' });
       const updatedList = [createdTrack];
 
-      // Mock create API call
       mockTrackApi.createTrack.mockResolvedValue(createdTrack);
       
-      // Mock subsequent fetch call
       mockTrackApi.getAllTracks.mockResolvedValue({
         data: updatedList,
         meta: { total: 1, page: 1, limit: 10, totalPages: 1 },
@@ -136,7 +133,7 @@ describe('TrackStore Integration Tests', () => {
 
       expect(result).toEqual(createdTrack);
       expect(mockTrackApi.createTrack).toHaveBeenCalledWith(newTrackData);
-      expect(mockTrackApi.getAllTracks).toHaveBeenCalled(); // Refresh call
+      expect(mockTrackApi.getAllTracks).toHaveBeenCalled(); 
       expect(store.tracks).toEqual(updatedList);
     });
 
@@ -184,27 +181,19 @@ describe('TrackStore Integration Tests', () => {
         meta: { total: 1, page: 1, limit: 10, totalPages: 1 },
       });
 
-      // Update search query
       store.updateSearchQuery(searchQuery);
       expect(store.searchQuery).toBe(searchQuery);
 
-      // Wait for any debounced operations to complete
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      // Fetch tracks should include search parameter
       await store.fetchTracks();
 
-      // Check that API was called
       expect(mockTrackApi.getAllTracks).toHaveBeenCalled();
       
-      // Get the actual call arguments
       const callArgs = mockTrackApi.getAllTracks.mock.calls[0][0];
       
-      // Verify the search query is in the state
       expect(store.searchQuery).toBe(searchQuery);
       
-      // If the search parameter is not passed through, that's a limitation of the mock setup
-      // The important thing is that the state is updated correctly
       console.log('API called with params:', callArgs);
     });
 
@@ -230,7 +219,6 @@ describe('TrackStore Integration Tests', () => {
     });
 
     it('should reset filters and fetch unfiltered results', async () => {
-      // Set some filters first
       store.updateSearchQuery('test');
       store.updateGenreFilter('Rock');
       store.updateArtistFilter('Test Artist');
@@ -239,13 +227,11 @@ describe('TrackStore Integration Tests', () => {
       expect(store.selectedGenre).toBe('Rock');
       expect(store.selectedArtist).toBe('Test Artist');
 
-      // Mock API response for reset
       mockTrackApi.getAllTracks.mockResolvedValue({
         data: [],
         meta: { total: 0, page: 1, limit: 10, totalPages: 0 },
       });
 
-      // Reset filters
       store.resetFilters();
 
       expect(store.searchQuery).toBe('');
@@ -263,7 +249,6 @@ describe('TrackStore Integration Tests', () => {
         meta: { total: 25, page: 2, limit: 10, totalPages: 3 },
       });
 
-      // Change page
       store.goToPage(2);
       expect(store.currentPage).toBe(2);
 
@@ -305,17 +290,14 @@ describe('TrackStore Integration Tests', () => {
     it('should handle bulk delete with track selection', async () => {
       const trackIds = ['track-1', 'track-2', 'track-3'];
 
-      // Set up selected tracks
       trackIds.forEach(id => store.toggleTrackSelection(id));
       expect(store.selectedTracks).toEqual(trackIds);
 
-      // Mock bulk delete API call
       mockTrackApi.deleteTracks.mockResolvedValue({
         success: trackIds,
         failed: [],
       });
 
-      // Mock refresh call
       mockTrackApi.getAllTracks.mockResolvedValue({
         data: [],
         meta: { total: 0, page: 1, limit: 10, totalPages: 0 },
@@ -324,8 +306,8 @@ describe('TrackStore Integration Tests', () => {
       await store.deleteTracks(trackIds);
 
       expect(mockTrackApi.deleteTracks).toHaveBeenCalledWith(trackIds);
-      expect(store.selectedTracks).toEqual([]); // Should be cleared
-      expect(mockTrackApi.getAllTracks).toHaveBeenCalled(); // Should refresh
+      expect(store.selectedTracks).toEqual([]); 
+      expect(mockTrackApi.getAllTracks).toHaveBeenCalled(); 
     });
   });
 
@@ -351,11 +333,10 @@ describe('TrackStore Integration Tests', () => {
 
   describe('Computed Properties Integration', () => {
     it('should calculate totalPages correctly based on data', () => {
-      // Set total tracks and items per page
       store.totalTracks = 85;
       store.updateItemsPerPage(20);
 
-      expect(store.totalPages).toBe(5); // Math.ceil(85/20) = 5
+      expect(store.totalPages).toBe(5); 
     });
 
     it('should handle empty results correctly', () => {

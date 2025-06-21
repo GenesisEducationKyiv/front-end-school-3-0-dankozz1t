@@ -1,8 +1,10 @@
-import { describe, it, expect } from 'vitest';
-
 /**
- * UNIT TEST: BLACKBOX TESTING
+ * UNIT TEST: VITEST - BLACKBOX TESTING
+ * Tests the formatTime utility function as a black box without knowledge of internal implementation.
+ * Verifies input/output behavior, edge cases, and error handling for time formatting.
  */
+
+import { describe, it, expect } from 'vitest';
 
 function formatTime(seconds: number): string {
   if (!seconds || isNaN(seconds) || seconds < 0) return '0:00';
