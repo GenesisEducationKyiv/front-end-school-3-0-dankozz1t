@@ -29,6 +29,8 @@ playwright-report
 test-results
 test-results.json
 
+tests/graph.td
+
 # Exclude 
 !tests/playwright
 !.env.example
