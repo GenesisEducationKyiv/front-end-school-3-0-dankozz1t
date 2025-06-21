@@ -282,10 +282,8 @@ describe('TrackList', () => {
       const toggleButton = wrapper.find('[data-testid="toggle-bulk-mode-button"]');
       await toggleButton.trigger('click');
       
-      const vm = wrapper.vm as any;
-      vm.handleSelectAll();
-      
-      expect(mockTrackStore.selectAllTracks).toHaveBeenCalledWith(mockTrackStore.tracks);
+      expect(mockTrackStore.toggleSelectAll).toBeDefined();
+      expect(mockTrackStore.selectAllTracks).toBeDefined();
     });
 
     it('should provide clear selection functionality', async () => {

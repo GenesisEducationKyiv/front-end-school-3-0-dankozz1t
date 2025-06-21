@@ -194,6 +194,7 @@ describe('TrackForm', () => {
 
   describe('error handling', () => {
     it('should handle create errors gracefully', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const errorMessage = 'Failed to create track';
       mockTrackStore.createTrack.mockRejectedValueOnce(new Error(errorMessage));
       
@@ -201,9 +202,11 @@ describe('TrackForm', () => {
       await wrapper.find('[data-testid="submit-button"]').trigger('click');
 
       expect(mockNotificationStore.notify).toHaveBeenCalledWith('Failed to save track', 'error');
+      consoleSpy.mockRestore();
     });
 
     it('should handle update errors gracefully', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const errorMessage = 'Failed to update track';
       mockTrackStore.updateTrack.mockRejectedValueOnce(new Error(errorMessage));
       
@@ -211,6 +214,16 @@ describe('TrackForm', () => {
       await wrapper.find('[data-testid="submit-button"]').trigger('click');
 
       expect(mockNotificationStore.notify).toHaveBeenCalledWith('Failed to save track', 'error');
+      consoleSpy.mockRestore();
+    });
+
+    it('should validate required fields', async () => {
+      const wrapper = mountComponent();
+      const titleInput = wrapper.find('[data-testid="input-title"]');
+      const artistInput = wrapper.find('[data-testid="input-artist"]');
+      
+      expect(titleInput.exists()).toBe(true);
+      expect(artistInput.exists()).toBe(true);
     });
   });
 

@@ -78,6 +78,13 @@ describe('TrackStore Integration Tests', () => {
   beforeEach(() => {
     pinia = createPinia();
     setActivePinia(pinia);
+    
+    const originalWarn = console.warn;
+    console.warn = (message: string) => {
+      if (message.includes('onBeforeUnmount')) return;
+      originalWarn(message);
+    };
+    
     store = useTrackStore() as any;
     vi.clearAllMocks();
   });

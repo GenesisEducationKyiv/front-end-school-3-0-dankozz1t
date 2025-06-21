@@ -152,6 +152,7 @@ export const createMockTrackStore = (overrides: any = {}) => ({
   isTrackSelected: vi.fn(),
   selectAllTracks: vi.fn(),
   clearSelectedTracks: vi.fn(),
+  toggleSelectAll: vi.fn(),
   updateSearchQuery: vi.fn(),
   updateGenreFilter: vi.fn(),
   updateArtistFilter: vi.fn(),

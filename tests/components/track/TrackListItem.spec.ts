@@ -20,9 +20,8 @@ vi.mock('../../../src/shared/modules/modalsPool/store/modalsPool', () => ({
   })),
 }));
 
-import { createMockTrack, createMockTrackStore, createMockPlayerStore, createMockModalsPool, vuetifyStubs } from '../../utils/testUtils';
+import { createMockTrack, createMockTrackStore, createMockPlayerStore,  vuetifyStubs } from '../../utils/testUtils';
 
-// Using utility mock types
 
 interface MountComponentProps {
   track?: Track;
@@ -63,40 +62,7 @@ describe('TrackListItem', () => {
       global: {
         plugins: [pinia],
         stubs: {
-          'v-card': {
-            template: '<div class="v-card"><slot /></div>',
-          },
-          'v-row': {
-            template: '<div class="v-row"><slot /></div>',
-          },
-          'v-col': {
-            template: '<div class="v-col"><slot /></div>',
-          },
-          'v-img': {
-            template: '<div class="v-img"></div>',
-          },
-          'v-icon': {
-            template: '<i class="v-icon"><slot /></i>',
-          },
-          'v-btn': {
-            template:
-              '<button class="v-btn" :data-testid="$attrs[\'data-testid\']" @click="$emit(\'click\')"><slot /></button>',
-            inheritAttrs: false,
-          },
-          'v-chip': {
-            template: '<span class="v-chip"><slot /></span>',
-          },
-          'v-checkbox': {
-            template:
-              '<input type="checkbox" class="v-checkbox" :data-testid="$attrs[\'data-testid\']" @change="$emit(\'update:modelValue\', $event.target.checked)" />',
-            inheritAttrs: false,
-          },
-          'v-progress-circular': {
-            template: '<div class="v-progress-circular"></div>',
-          },
-          'v-progress-linear': {
-            template: '<div class="v-progress-linear"></div>',
-          },
+          ...vuetifyStubs,
         },
       },
     });

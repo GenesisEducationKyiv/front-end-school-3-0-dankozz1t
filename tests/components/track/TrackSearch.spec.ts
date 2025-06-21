@@ -140,6 +140,18 @@ describe('TrackSearch', () => {
       expect(mockTrackStore.updateSearchQuery).toHaveBeenCalledTimes(3);
       expect(mockTrackStore.updateSearchQuery).toHaveBeenLastCalledWith('abc');
     });
+
+    it('should handle debounced search correctly', async () => {
+      vi.useFakeTimers();
+      const wrapper = mountComponent();
+      const searchInput = wrapper.find('[data-testid="track-search-input"]');
+
+      await searchInput.setValue('test');
+      vi.advanceTimersByTime(300);
+
+      expect(mockTrackStore.updateSearchQuery).toHaveBeenCalledWith('test');
+      vi.useRealTimers();
+    });
   });
 
   describe('accessibility', () => {
