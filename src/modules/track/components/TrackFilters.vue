@@ -103,13 +103,14 @@ const updateItemsPerPage = async (value: number): Promise<void> => {
   <v-card class="mb-4" elevation="2">
     <v-card-title class="pb-2">
       <div class="d-flex align-center justify-space-between w-100">
-        <span class="text-subtitle-1">Filters & Sorting</span>
+        <span class="text-subtitle-1" data-testid="filters-title">Filters & Sorting</span>
         <v-btn
           v-if="hasActiveFilters"
           variant="text"
           size="small"
           color="primary"
           prependIcon="mdi-filter-remove"
+          data-testid="clear-all-filters"
           @click="clearAllFilters"
         >
           Clear All
@@ -179,7 +180,7 @@ const updateItemsPerPage = async (value: number): Promise<void> => {
       </v-row>
 
       <!-- Active Filters Display -->
-      <div v-if="hasActiveFilters" class="mt-3">
+      <div v-if="hasActiveFilters" class="mt-3" data-testid="active-filters">
         <div class="text-caption text-grey mb-2">Active filters:</div>
         <div class="d-flex flex-wrap gap-2">
           <v-chip
@@ -187,6 +188,7 @@ const updateItemsPerPage = async (value: number): Promise<void> => {
             size="small"
             closable
             color="primary"
+            data-testid="search-filter-chip"
             @click:close="trackStore.updateSearchQuery('')"
           >
             Search: "{{ trackStore.searchQuery }}"
@@ -196,6 +198,7 @@ const updateItemsPerPage = async (value: number): Promise<void> => {
             size="small"
             closable
             color="success"
+            data-testid="genre-filter-chip"
             @click:close="selectedGenre = null"
           >
             Genre: {{ trackStore.selectedGenre }}
@@ -205,6 +208,7 @@ const updateItemsPerPage = async (value: number): Promise<void> => {
             size="small"
             closable
             color="info"
+            data-testid="artist-filter-chip"
             @click:close="selectedArtist = null"
           >
             Artist: {{ trackStore.selectedArtist }}
