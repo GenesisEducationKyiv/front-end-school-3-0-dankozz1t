@@ -28,3 +28,4 @@ logs
 playwright
 playwright-report
 test-results
+test-results.json

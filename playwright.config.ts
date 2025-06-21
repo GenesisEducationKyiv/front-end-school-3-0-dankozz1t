@@ -12,7 +12,7 @@ export default defineConfig({
       testMatch: '**/e2e/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:5173',
+        baseURL: 'http://localhost:3000',
         screenshot: 'only-on-failure',
         video: 'retain-on-failure',
         trace: 'on-first-retry'
@@ -23,7 +23,7 @@ export default defineConfig({
       testMatch: '**/component/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:5173',
+        baseURL: 'http://localhost:3000',
         screenshot: 'only-on-failure'
       }
     },
@@ -32,7 +32,7 @@ export default defineConfig({
       testMatch: '**/e2e/**/*.spec.ts',
       use: {
         ...devices['iPhone 13'],
-        baseURL: 'http://localhost:5173'
+        baseURL: 'http://localhost:3000'
       }
     }
   ],
@@ -66,7 +66,7 @@ export default defineConfig({
   
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:5173',
+    url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120_000
   },
