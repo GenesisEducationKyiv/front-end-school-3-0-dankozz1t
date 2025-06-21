@@ -63,20 +63,29 @@ describe('useAudioPlayer', () => {
   describe('playTrack', () => {
     it('should set current track when playing', async () => {
       const player = useAudioPlayer();
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
-      try {
-        await player.playTrack(mockTrack);
-        expect(player.currentTrack.value).toEqual(mockTrack);
-      } catch {
-        expect(player.currentTrack.value).toEqual(mockTrack);
-      }
+      await player.playTrack(mockTrack);
+      expect(player.currentTrack.value).toEqual(mockTrack);
+
+      consoleSpy.mockRestore();
     });
 
     it('should handle tracks without audio file', async () => {
       const player = useAudioPlayer();
       const trackWithoutAudio = createMockTrack({ audioFile: undefined });
 
-      await expect(player.playTrack(trackWithoutAudio)).rejects.toThrow();
+      await expect(player.playTrack(trackWithoutAudio)).rejects.toThrow('Track has no audio file');
+    });
+
+    it('should update playing state when track starts', async () => {
+      const player = useAudioPlayer();
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+      await player.playTrack(mockTrack);
+      expect(player.currentTrack.value).toEqual(mockTrack);
+
+      consoleSpy.mockRestore();
     });
   });
 

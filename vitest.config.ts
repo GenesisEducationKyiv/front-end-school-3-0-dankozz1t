@@ -13,8 +13,7 @@ export default defineConfig({
       '**/dist/**',
       '**/cypress/**',
       '**/.{idea,git,cache,output,temp}/**',
-      '**/tests/component/**', // Exclude Playwright component tests
-      '**/tests/e2e/**', // Exclude Playwright E2E tests
+      '**/tests/playwright/**', // Exclude Playwright tests
     ],
   },
   resolve: {

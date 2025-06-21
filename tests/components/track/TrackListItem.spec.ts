@@ -20,26 +20,9 @@ vi.mock('../../../src/shared/modules/modalsPool/store/modalsPool', () => ({
   })),
 }));
 
-import { createMockTrack } from '../../utils/testUtils';
+import { createMockTrack, createMockTrackStore, createMockPlayerStore, createMockModalsPool, vuetifyStubs } from '../../utils/testUtils';
 
-interface MockTrackStore {
-  isInBulkMode: boolean;
-  toggleTrackSelection: ReturnType<typeof vi.fn>;
-  deleteTrack: ReturnType<typeof vi.fn>;
-  updateTrack: ReturnType<typeof vi.fn>;
-}
-
-interface MockPlayerStore {
-  currentTrack: Track | null;
-  isPlaying: boolean;
-  loading: boolean;
-  playTrack: ReturnType<typeof vi.fn>;
-  pauseTrack: ReturnType<typeof vi.fn>;
-  resumeTrack: ReturnType<typeof vi.fn>;
-  isTrackPlaying: ReturnType<typeof vi.fn>;
-  isTrackPaused: ReturnType<typeof vi.fn>;
-  isTrackLoaded: ReturnType<typeof vi.fn>;
-}
+// Using utility mock types
 
 interface MountComponentProps {
   track?: Track;
@@ -49,8 +32,8 @@ interface MountComponentProps {
 
 describe('TrackListItem', () => {
   let pinia: ReturnType<typeof createPinia>;
-  let mockTrackStore: MockTrackStore;
-  let mockPlayerStore: MockPlayerStore;
+  let mockTrackStore: ReturnType<typeof createMockTrackStore>;
+  let mockPlayerStore: ReturnType<typeof createMockPlayerStore>;
 
   const mockTrack = createMockTrack({
     id: 'track-1',
@@ -64,31 +47,11 @@ describe('TrackListItem', () => {
     pinia = createPinia();
     setActivePinia(pinia);
 
-    mockTrackStore = {
-      isInBulkMode: false,
-      toggleTrackSelection: vi.fn(),
-      deleteTrack: vi.fn(),
-      updateTrack: vi.fn(),
-    };
+    mockTrackStore = createMockTrackStore();
+    mockPlayerStore = createMockPlayerStore();
 
-    mockPlayerStore = {
-      currentTrack: null,
-      isPlaying: false,
-      loading: false,
-      playTrack: vi.fn(),
-      pauseTrack: vi.fn(),
-      resumeTrack: vi.fn(),
-      isTrackPlaying: vi.fn().mockReturnValue(false),
-      isTrackPaused: vi.fn().mockReturnValue(false),
-      isTrackLoaded: vi.fn().mockReturnValue(false),
-    };
-
-    vi.mocked(useTrackStore).mockReturnValue(
-      mockTrackStore as unknown as ReturnType<typeof useTrackStore>
-    );
-    vi.mocked(usePlayerStore).mockReturnValue(
-      mockPlayerStore as unknown as ReturnType<typeof usePlayerStore>
-    );
+    vi.mocked(useTrackStore).mockReturnValue(mockTrackStore);
+    vi.mocked(usePlayerStore).mockReturnValue(mockPlayerStore);
   });
 
   const mountComponent = (props: MountComponentProps = {}) => {

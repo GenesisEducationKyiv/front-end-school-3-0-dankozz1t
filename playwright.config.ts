@@ -8,28 +8,19 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'e2e',
-      testMatch: '**/e2e/**/*.spec.ts',
+      name: 'playwright',
+      testMatch: '**/tests/playwright/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'http://localhost:3000',
-        screenshot: 'only-on-failure',
+        screenshot: 'on',
         video: 'retain-on-failure',
         trace: 'on-first-retry'
       }
     },
     {
-      name: 'component',
-      testMatch: '**/component/**/*.spec.ts',
-      use: {
-        ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:3000',
-        screenshot: 'only-on-failure'
-      }
-    },
-    {
-      name: 'mobile-e2e',
-      testMatch: '**/e2e/**/*.spec.ts',
+      name: 'mobile-playwright',
+      testMatch: '**/tests/playwright/**/*.spec.ts',
       use: {
         ...devices['iPhone 13'],
         baseURL: 'http://localhost:3000'
