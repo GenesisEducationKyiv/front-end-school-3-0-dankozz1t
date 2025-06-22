@@ -147,7 +147,7 @@ export const useTrackStore = defineStore('track', () => {
 
     startFilterSync();
 
-    if (Object.keys(urlData).length <= 0) {
+    if (!urlData.search) {
       await fetchTracks();
     }
 
