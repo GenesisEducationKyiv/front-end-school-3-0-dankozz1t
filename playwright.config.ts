@@ -8,7 +8,7 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'playwright',
+      name: 'chrome',
       testMatch: '**/tests/playwright/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
@@ -19,7 +19,7 @@ export default defineConfig({
       }
     },
     {
-      name: 'mobile-playwright',
+      name: 'iphone-13',
       testMatch: '**/tests/playwright/**/*.spec.ts',
       use: {
         ...devices['iPhone 13'],

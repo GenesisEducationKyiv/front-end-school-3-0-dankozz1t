@@ -47,7 +47,6 @@ export default [
         sourceType: 'module',
       },
       globals: {
-        // Browser globals
         console: 'readonly',
         window: 'readonly',
         document: 'readonly',
