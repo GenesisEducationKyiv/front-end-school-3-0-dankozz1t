@@ -5,33 +5,11 @@ import type { Track } from '@/modules/track/types';
 
 export const usePlayerStore = defineStore('player', () => {
   // === COMPOSABLE ===
-  const audioPlayer = useAudioPlayer({
-    onTrackStart: track => {
-      console.log('Track started:', track.title);
-    },
-    onTrackEnd: track => {
-      console.log('Track ended:', track.title);
-    },
-    onTrackPause: track => {
-      console.log('Track paused:', track.title);
-    },
-    onTrackResume: track => {
-      console.log('Track resumed:', track.title);
-    },
-    onError: error => {
-      console.error('Player error:', error.message);
-    },
-  });
+  const audioPlayer = useAudioPlayer();
 
   // === COMPUTED ===
-  const hasAudioPlaying: ComputedRef<boolean> = computed(() => audioPlayer.isPlaying.value);
 
   const hasAudioLoaded: ComputedRef<boolean> = computed(() => !!audioPlayer.currentTrack.value);
-
-  const playbackProgress: ComputedRef<number> = computed(() => {
-    if (audioPlayer.duration.value === 0) return 0;
-    return (audioPlayer.currentTime.value / audioPlayer.duration.value) * 100;
-  });
 
   // === ACTIONS ===
 
@@ -79,9 +57,7 @@ export const usePlayerStore = defineStore('player', () => {
     isPaused: audioPlayer.isPaused,
 
     // Computed
-    hasAudioPlaying,
     hasAudioLoaded,
-    playbackProgress,
 
     // Methods from composable
     isTrackPlaying: audioPlayer.isTrackPlaying,
