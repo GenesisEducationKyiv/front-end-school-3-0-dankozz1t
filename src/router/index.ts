@@ -24,6 +24,17 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: '/tracks-graphql',
+    component: DefaultLayout,
+    children: [
+      {
+        path: '',
+        name: 'TracksGraphQL',
+        component: () => import('@/pages/TracksGraphQl.vue'),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
