@@ -4,10 +4,13 @@ import multipart from '@fastify/multipart';
 import fastifyStatic from '@fastify/static';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
+import mercurius from 'mercurius';
 import path from 'path';
 import routes from './routes';
 import { initializeDb } from './utils/db';
 import config from './config';
+import { schema } from './graphql/schema';
+import { resolvers } from './graphql/resolvers';
 
 async function start() {
   try {
@@ -68,6 +71,14 @@ async function start() {
         docExpansion: 'list',
         deepLinking: true
       }
+    });
+
+    // Register GraphQL
+    await fastify.register(mercurius, {
+      schema,
+      resolvers,
+      graphiql: config.isDevelopment,
+      path: '/graphql'
     });
     
     // Register routes
