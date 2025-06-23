@@ -32,3 +32,8 @@ test-results.json
 # Exclude 
 !tests/playwright
 !.env.example
+
+
+# Backend 
+_Backend_/data
+_Backend_/data-initial
