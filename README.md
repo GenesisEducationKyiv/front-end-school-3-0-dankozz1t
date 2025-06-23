@@ -52,3 +52,4 @@ npm run test:playwright
 - ![](./docs/demo/02_filters.png)
 - ![](./docs/demo/03_bulk_delete.png)
 - ![](./docs/demo/04_mobile.png)
+- ![](./docs/demo/05_graphql.png)
