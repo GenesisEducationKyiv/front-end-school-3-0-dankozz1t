@@ -45,6 +45,22 @@ npm run test:playwright
 
 ## Music Manager Security Audit 
 - [docs -> security-audit ->  README.md](./docs/security-audit/README.md) —  Security Report
+
+## Bundle Analysis & Performance
+
+add to env `VITE_IS_DEBUG=true`
+
+```bash
+# Analyze bundle with interactive tool
+npm run analyze
+
+# Run size analysis
+npm run analyze:size
+
+# Generate bundle report
+npm run build:report
+```
+
 ---
 
 # Visual Demonstration  
@@ -53,3 +69,6 @@ npm run test:playwright
 - ![](./docs/demo/03_bulk_delete.png)
 - ![](./docs/demo/04_mobile.png)
 - ![](./docs/demo/05_graphql.png)
+- ![](./docs/demo/06_bundle_size.png)
+- ![](./docs/demo/07_bundle_report.png)
+
