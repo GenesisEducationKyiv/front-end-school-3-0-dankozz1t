@@ -40,7 +40,7 @@ export default defineConfig(({ command, mode }) => {
     },
 
     build: {
-      sourcemap: isDevelopment ? 'inline' : true,
+      sourcemap: isDevelopment,
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
