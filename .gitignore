@@ -22,4 +22,13 @@ logs
 # Local env files
 # .env - for your test <3
 .env.*
+
+#test
+playwright
+playwright-report
+test-results
+test-results.json
+
+# Exclude 
+!tests/playwright
 !.env.example
