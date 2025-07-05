@@ -1,0 +1,115 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ['*']
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      NODE_OPTIONS: '--max-old-space-size=4096'
+      NODE_ENV: test
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 📁 Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🧪 Run unit tests (Vitest)
+        run: npm run test:vitest
+
+      - name: 📊 Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vitest-results-${{ github.sha }}
+          path: |
+            test-results.json
+            coverage/
+          retention-days: 3
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      NODE_OPTIONS: '--max-old-space-size=4096'
+      NODE_ENV: test
+      CI: true
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 📁 Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
+      - name: 🎭 Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🏗️ Build frontend
+        run: npm run build
+
+      - name: 📋 Install Playwright browsers
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: 🎭 Run integration tests (Playwright)
+        run: npm run test:playwright
+
+      - name: 📈 Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ github.sha }}
+          path: playwright-report/
+          retention-days: 7
+
+      - name: 📊 Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-results-${{ github.sha }}
+          path: test-results/
+          retention-days: 3

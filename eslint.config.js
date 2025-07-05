@@ -32,6 +32,7 @@ export default [
       '.env.production.local',
       'test-results/**',
       'playwright-report/**',
+      '**/_BACKEND_/**',
     ],
   },
   
