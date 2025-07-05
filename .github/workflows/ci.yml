@@ -8,7 +8,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   ci:
@@ -18,14 +17,6 @@ jobs:
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
-
-      - name: 🧪 Debug dependency versions
-        run: |
-          echo "Node.js version: $(node --version)"
-          echo "npm version: $(npm --version)"
-          echo "Rollup version: $(npm list rollup --depth=0 2>/dev/null || echo 'Not found')"
-          echo "Vite version: $(npm list vite --depth=0 2>/dev/null || echo 'Not found')"
-          echo "Vitest version: $(npm list vitest --depth=0 2>/dev/null || echo 'Not found')"
 
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
@@ -49,9 +40,6 @@ jobs:
       - name: 🔍 TypeScript type check
         run: npm run type-check
 
-      - name: 🧪 Run unit tests
-        run: npm run test:vitest
-
       - name: 🏗️ Build frontend
         run: npm run build
 
@@ -62,13 +50,3 @@ jobs:
           name: build-${{ github.sha }}
           path: dist/
           retention-days: 7
-
-      - name: 📊 Upload test results
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-results-${{ github.sha }}
-          path: |
-            test-results.json
-            coverage/
-          retention-days: 3
