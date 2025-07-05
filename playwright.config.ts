@@ -18,14 +18,6 @@ export default defineConfig({
         trace: 'on-first-retry'
       }
     },
-    {
-      name: 'iphone-13',
-      testMatch: '**/tests/playwright/**/*.spec.ts',
-      use: {
-        ...devices['iPhone 13'],
-        baseURL: 'http://localhost:3000'
-      }
-    }
   ],
 
   use: {
