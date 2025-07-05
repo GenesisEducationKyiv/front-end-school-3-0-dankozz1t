@@ -205,7 +205,7 @@ test.describe('TrackFilters Component', () => {
     await filtersPage.expectActiveFiltersHidden();
   });
 
-  test('should filter tracks by genre', async ({ page }) => {
+  test('should filter tracks by genre', async () => {
     // Apply genre filter
     await filtersPage.selectGenre('Rock');
 
@@ -221,7 +221,7 @@ test.describe('TrackFilters Component', () => {
     await filtersPage.expectTrackHidden('track-3');
   });
 
-  test('should filter tracks by artist', async ({ page }) => {
+  test('should filter tracks by artist', async () => {
     // Apply artist filter
     await filtersPage.selectArtist('Queen');
 
@@ -251,7 +251,7 @@ test.describe('TrackFilters Component', () => {
     await filtersPage.expectClearAllButtonVisible();
   });
 
-  test('should clear all filters', async ({ page }) => {
+  test('should clear all filters', async () => {
     // Apply filters
     await filtersPage.selectGenre('Rock');
     await filtersPage.selectArtist('Queen');

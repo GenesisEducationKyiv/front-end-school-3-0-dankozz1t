@@ -16,7 +16,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
     "format": "prettier --write src/",
     "test:vitest": "vitest run --config vitest.config.ts",
     "test:playwright": "playwright test --config playwright.config.ts"
@@ -31,6 +31,7 @@
     "zod": "3.25.64"
   },
   "devDependencies": {
+    "@eslint/js": "9.29.0",
     "@mdi/font": "7.4.47",
     "@playwright/experimental-ct-vue": "1.53.1",
     "@playwright/test": "1.53.1",

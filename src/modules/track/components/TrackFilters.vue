@@ -21,39 +21,34 @@ const availableArtists = computed(() => {
 
 const selectedGenre = computed({
   get: () => trackStore.selectedGenre,
-  set: async (value: string | null) => {
+  set: (value: string | null) => {
     trackStore.updateGenreFilter(value);
-    await trackStore.fetchTracks();
   },
 });
 
 const selectedArtist = computed({
   get: () => trackStore.selectedArtist,
-  set: async (value: string | null) => {
+  set: (value: string | null) => {
     trackStore.updateArtistFilter(value);
-    await trackStore.fetchTracks();
   },
 });
 
 const sortBy = computed({
   get: () => trackStore.sortBy,
-  set: async (value: TrackSortField) => {
+  set: (value: TrackSortField) => {
     trackStore.updateSorting(value, trackStore.sortOrder);
-    await trackStore.fetchTracks();
   },
 });
 
 const sortOrder = computed({
   get: () => trackStore.sortOrder,
-  set: async (value: TrackSortOrder) => {
+  set: (value: TrackSortOrder) => {
     trackStore.updateSorting(trackStore.sortBy, value);
-    await trackStore.fetchTracks();
   },
 });
 
-const clearAllFilters = async (): Promise<void> => {
+const clearAllFilters = (): void => {
   trackStore.resetFilters();
-  await trackStore.fetchTracks();
 };
 
 const hasActiveFilters = computed(() => {
@@ -85,17 +80,15 @@ const sortOptionsWithKeys = computed(() => {
   }));
 });
 
-const updateSort = async (key: string): Promise<void> => {
+const updateSort = (key: string): void => {
   const option = sortOptions.find(opt => `${opt.value}-${opt.order}` === key);
   if (option) {
     trackStore.updateSorting(option.value, option.order);
-    await trackStore.fetchTracks();
   }
 };
 
-const updateItemsPerPage = async (value: number): Promise<void> => {
+const updateItemsPerPage = (value: number): void => {
   trackStore.updateItemsPerPage(value);
-  await trackStore.fetchTracks();
 };
 </script>
 
