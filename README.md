@@ -71,4 +71,5 @@ npm run build:report
 - ![](./docs/demo/05_graphql.png)
 - ![](./docs/demo/06_bundle_size.png)
 - ![](./docs/demo/07_bundle_report.png)
+- ![](./docs/demo/08_lighthouse.png)
 
