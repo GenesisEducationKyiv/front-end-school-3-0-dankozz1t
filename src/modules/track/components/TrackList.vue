@@ -48,6 +48,7 @@ const handleClearSelection = (): void => {
         </v-chip>
         <v-btn
           v-if="trackStore.selectedCount < trackStore.tracks.length"
+          aria-label="Select all tracks"
           variant="text"
           size="small"
           @click="handleSelectAll"
@@ -56,6 +57,7 @@ const handleClearSelection = (): void => {
         </v-btn>
         <v-btn
           v-if="trackStore.selectedCount > 0"
+          aria-label="Clear selection"
           variant="text"
           size="small"
           @click="handleClearSelection"
@@ -66,6 +68,7 @@ const handleClearSelection = (): void => {
 
       <v-btn
         v-if="!bulkSelectMode"
+        aria-label="Add track"
         color="primary"
         prependIcon="mdi-plus"
         data-testid="create-track-button"
@@ -75,6 +78,7 @@ const handleClearSelection = (): void => {
       </v-btn>
       <v-btn
         v-else
+        aria-label="Delete selected tracks"
         color="error"
         prependIcon="mdi-delete"
         :disabled="trackStore.selectedTracks.length === 0"
@@ -84,6 +88,7 @@ const handleClearSelection = (): void => {
         Delete Selected ({{ trackStore.selectedCount }})
       </v-btn>
       <v-btn
+        aria-label="Toggle bulk mode"
         :icon="bulkSelectMode ? 'mdi-close' : 'mdi-checkbox-multiple-marked'"
         variant="text"
         class="ml-2"
@@ -94,11 +99,11 @@ const handleClearSelection = (): void => {
 
     <!-- Track List -->
     <div v-if="trackStore.loading" class="d-flex justify-center my-4">
-      <v-progress-circular indeterminate color="primary" />
+      <v-progress-circular aria-label="Loading tracks" indeterminate color="primary" />
     </div>
 
     <div v-else-if="trackStore.tracks.length === 0" class="text-center my-4">
-      <v-icon size="64" color="grey">mdi-music-off</v-icon>
+      <v-icon aria-label="No tracks found" size="64" color="grey">mdi-music-off</v-icon>
       <div class="text-h6 mt-4">No tracks found</div>
       <div class="text-body-1 text-grey">Add your first track to get started</div>
     </div>
@@ -116,6 +121,7 @@ const handleClearSelection = (): void => {
     <!-- Pagination -->
     <v-pagination
       v-if="trackStore.totalPages > 1"
+      aria-label="Pagination"
       v-model="trackStore.currentPage"
       :length="trackStore.totalPages"
       class="mt-4"
@@ -123,7 +129,11 @@ const handleClearSelection = (): void => {
     />
 
     <!-- Summary -->
-    <div v-if="trackStore.tracks.length > 0" class="text-center mt-4 text-caption text-grey">
+    <div
+      v-if="trackStore.tracks.length > 0"
+      aria-label="Tracks summary"
+      class="text-center mt-4 text-caption text-grey"
+    >
       Showing {{ trackStore.tracks.length }} of {{ trackStore.totalTracks }} tracks
     </div>
   </div>

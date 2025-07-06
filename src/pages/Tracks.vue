@@ -11,8 +11,8 @@ trackStore.initializeStore();
 
 <template>
   <div class="tracks-page">
-    <div class="page-header mb-6">
-      <h1 class="text-h4 font-weight-bold mb-2">Music Collection</h1>
+    <div class="page-header mb-6 text-center">
+      <h1 class="text-h5  md:text-h4 font-weight-bold mb-2">Music Collection</h1>
       <p class="text-body-1 text-grey-darken-1">Manage your music tracks</p>
     </div>
 

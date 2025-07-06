@@ -98,6 +98,7 @@ const updateItemsPerPage = (value: number): void => {
       <div class="d-flex align-center justify-space-between w-100">
         <span class="text-subtitle-1" data-testid="filters-title">Filters & Sorting</span>
         <v-btn
+          aria-label="Clear all filters"
           v-if="hasActiveFilters"
           variant="text"
           size="small"
@@ -116,6 +117,7 @@ const updateItemsPerPage = (value: number): void => {
         <!-- Genre Filter -->
         <v-col cols="12" md="3">
           <v-select
+            aria-label="Filter by Genre"
             v-model="selectedGenre"
             :items="genresStore.genres"
             label="Filter by Genre"
@@ -130,6 +132,7 @@ const updateItemsPerPage = (value: number): void => {
         <!-- Artist Filter -->
         <v-col cols="12" md="3">
           <v-select
+            aria-label="Filter by Artist"
             v-model="selectedArtist"
             :items="availableArtists"
             label="Filter by Artist"
@@ -144,6 +147,7 @@ const updateItemsPerPage = (value: number): void => {
         <!-- Sort Options -->
         <v-col cols="12" md="4">
           <v-select
+            aria-label="Sort by"
             :modelValue="currentSortKey"
             :items="sortOptionsWithKeys"
             label="Sort by"
@@ -160,6 +164,7 @@ const updateItemsPerPage = (value: number): void => {
         <!-- Items per page -->
         <v-col cols="12" md="2">
           <v-select
+            aria-label="Items per page"
             :modelValue="trackStore.itemsPerPage"
             :items="[10, 20, 50, 100]"
             label="Per page"
@@ -179,6 +184,7 @@ const updateItemsPerPage = (value: number): void => {
           <v-chip
             v-if="trackStore.searchQuery"
             size="small"
+            aria-label="Search filter"
             closable
             color="primary"
             data-testid="search-filter-chip"
@@ -189,6 +195,7 @@ const updateItemsPerPage = (value: number): void => {
           <v-chip
             v-if="trackStore.selectedGenre"
             size="small"
+            aria-label="Genre filter"
             closable
             color="success"
             data-testid="genre-filter-chip"
@@ -199,6 +206,7 @@ const updateItemsPerPage = (value: number): void => {
           <v-chip
             v-if="trackStore.selectedArtist"
             size="small"
+            aria-label="Artist filter"
             closable
             color="info"
             data-testid="artist-filter-chip"

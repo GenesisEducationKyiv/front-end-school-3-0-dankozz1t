@@ -68,10 +68,22 @@ const closeDialog = (): void => {
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="primary" variant="text" data-testid="cancel-delete" @click="closeDialog">
+        <v-btn
+          aria-label="Cancel"
+          color="primary"
+          variant="text"
+          data-testid="cancel-delete"
+          @click="closeDialog"
+        >
           Cancel
         </v-btn>
-        <v-btn color="error" data-testid="confirm-delete" :loading="loading" @click="confirmDelete">
+        <v-btn
+          aria-label="Delete"
+          color="error"
+          data-testid="confirm-delete"
+          :loading="loading"
+          @click="confirmDelete"
+        >
           Delete
         </v-btn>
       </v-card-actions>
