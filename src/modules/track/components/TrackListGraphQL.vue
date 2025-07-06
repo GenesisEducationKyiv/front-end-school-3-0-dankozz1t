@@ -2,11 +2,19 @@
   <div class="track-list-graphql">
     <div class="header">
       <h2>Tracks (GraphQL)</h2>
-      <v-btn color="primary" prependIcon="mdi-plus" @click="openCreateDialog"> Add Track </v-btn>
+      <v-btn
+        aria-label="Add track"
+        color="primary"
+        prependIcon="mdi-plus"
+        @click="openCreateDialog"
+      >
+        Add Track
+      </v-btn>
     </div>
 
     <div class="filters">
       <v-text-field
+        aria-label="Search tracks"
         v-model="searchTerm"
         label="Search tracks..."
         clearable
@@ -17,6 +25,7 @@
       />
 
       <v-select
+        aria-label="Filter by genre"
         v-model="selectedGenre"
         :items="genres"
         label="Filter by genre"
@@ -27,14 +36,20 @@
       />
     </div>
 
-    <v-progress-linear v-if="tracksLoading" indeterminate color="primary" class="mb-4" />
+    <v-progress-linear
+      aria-label="Loading tracks"
+      v-if="tracksLoading"
+      indeterminate
+      color="primary"
+      class="mb-4"
+    />
 
     <v-alert v-if="tracksError" type="error" class="mb-4">
       Error loading tracks: {{ tracksError.message }}
     </v-alert>
 
     <div v-if="!tracksLoading && tracks.length === 0" class="empty-state">
-      <v-icon size="64" color="grey-lighten-1">mdi-music-off</v-icon>
+      <v-icon aria-label="No tracks found" size="64" color="grey-lighten-1">mdi-music-off</v-icon>
       <h3>No tracks found</h3>
       <p>Add your first track to get started</p>
     </div>
@@ -51,12 +66,12 @@
           >
             <template #placeholder>
               <div class="d-flex align-center justify-center fill-height">
-                <v-progress-circular indeterminate />
+                <v-progress-circular aria-label="Loading track" indeterminate />
               </div>
             </template>
           </v-img>
           <div v-else class="cover-placeholder">
-            <v-icon size="64" color="grey-lighten-1">mdi-music</v-icon>
+            <v-icon aria-label="No cover image" size="64" color="grey-lighten-1">mdi-music</v-icon>
           </div>
 
           <v-card-title class="text-truncate">{{ track.title }}</v-card-title>
@@ -83,6 +98,7 @@
           <v-card-actions>
             <v-btn
               v-if="track.audioFile"
+              aria-label="Play/Pause track"
               :icon="playerStore.isTrackPlaying(track.id) ? 'mdi-pause' : 'mdi-play'"
               variant="text"
               color="primary"
@@ -90,9 +106,16 @@
               @click="handlePlayPause(track)"
             />
 
-            <v-btn icon="mdi-pencil" variant="text" color="primary" @click="handleEdit(track)" />
+            <v-btn
+              aria-label="Edit track"
+              icon="mdi-pencil"
+              variant="text"
+              color="primary"
+              @click="handleEdit(track)"
+            />
 
             <v-btn
+              aria-label="Delete track"
               icon="mdi-delete"
               variant="text"
               color="error"
@@ -101,7 +124,14 @@
             />
 
             <v-spacer />
-            <v-btn v-if="!track.audioFile" size="small" variant="outlined" color="warning" disabled>
+            <v-btn
+              aria-label="No audio"
+              v-if="!track.audioFile"
+              size="small"
+              variant="outlined"
+              color="warning"
+              disabled
+            >
               No Audio
             </v-btn>
           </v-card-actions>
@@ -110,6 +140,7 @@
     </v-row>
 
     <v-pagination
+      aria-label="Pagination"
       v-if="totalPages > 1"
       v-model="currentPageModel"
       :length="totalPages"
@@ -118,19 +149,22 @@
     />
 
     <div v-if="totalTracks > 0" class="stats">
-      <v-chip variant="outlined">Total: {{ totalTracks }}</v-chip>
-      <v-chip variant="outlined">Page: {{ currentPage }}</v-chip>
+      <v-chip aria-label="Total tracks" variant="outlined">Total: {{ totalTracks }}</v-chip>
+      <v-chip aria-label="Current page" variant="outlined">Page: {{ currentPage }}</v-chip>
     </div>
 
     <v-dialog v-model="showCreateDialog" maxWidth="600" persistent>
       <v-card>
         <v-card-title>
-          <span class="text-h6">{{ editingTrack ? 'Edit Track' : 'Create New Track' }}</span>
+          <span aria-label="Track title" class="text-h6">{{
+            editingTrack ? 'Edit Track' : 'Create New Track'
+          }}</span>
         </v-card-title>
 
         <v-card-text>
           <v-form ref="formRef" v-model="formValid" @submit.prevent="handleSubmit">
             <v-text-field
+              aria-label="Title"
               v-model="formData.title"
               label="Title"
               :rules="[v => !!v || 'Title is required']"
@@ -139,6 +173,7 @@
             />
 
             <v-text-field
+              aria-label="Artist"
               v-model="formData.artist"
               label="Artist"
               :rules="[v => !!v || 'Artist is required']"
@@ -146,9 +181,15 @@
               variant="outlined"
             />
 
-            <v-text-field v-model="formData.album" label="Album" variant="outlined" />
+            <v-text-field
+              aria-label="Album"
+              v-model="formData.album"
+              label="Album"
+              variant="outlined"
+            />
 
             <v-select
+              aria-label="Genres"
               v-model="formData.genres"
               :items="genres"
               label="Genres"
@@ -160,6 +201,7 @@
             />
 
             <v-text-field
+              aria-label="Cover Image URL"
               v-model="formData.coverImage"
               label="Cover Image URL"
               variant="outlined"
@@ -170,8 +212,9 @@
 
         <v-card-actions>
           <v-spacer />
-          <v-btn variant="text" @click="closeDialog">Cancel</v-btn>
+          <v-btn aria-label="Cancel" variant="text" @click="closeDialog">Cancel</v-btn>
           <v-btn
+            aria-label="Submit track"
             color="primary"
             :loading="editingTrack ? updateLoading : createLoading"
             :disabled="!formValid"

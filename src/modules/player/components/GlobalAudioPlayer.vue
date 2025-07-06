@@ -77,6 +77,7 @@ const volumeValue = computed({
         <v-col cols="12" md="5" class="d-flex flex-column align-center">
           <div class="d-flex align-center justify-center mb-2">
             <v-btn
+              aria-label="Previous track"
               icon="mdi-skip-previous"
               variant="text"
               size="small"
@@ -84,6 +85,7 @@ const volumeValue = computed({
               disabled
             />
             <v-btn
+              aria-label="Play/Pause"
               :icon="isPlaying ? 'mdi-pause' : 'mdi-play'"
               variant="text"
               size="large"
@@ -94,6 +96,7 @@ const volumeValue = computed({
               @click="handlePlayPause"
             />
             <v-btn
+              aria-label="Stop track"
               icon="mdi-stop"
               variant="text"
               size="small"
@@ -102,6 +105,7 @@ const volumeValue = computed({
               @click="handleStop"
             />
             <v-btn
+              aria-label="Next track"
               icon="mdi-skip-next"
               variant="text"
               size="small"
@@ -133,8 +137,13 @@ const volumeValue = computed({
 
         <!-- Volume Control -->
         <v-col cols="12" md="3" class="d-flex align-center justify-end">
-          <v-icon :icon="volumeValue > 0 ? 'mdi-volume-high' : 'mdi-volume-off'" class="mr-2" />
+          <v-icon
+            aria-label="Volume"
+            :icon="volumeValue > 0 ? 'mdi-volume-high' : 'mdi-volume-off'"
+            class="mr-2"
+          />
           <v-slider
+            aria-label="Volume"
             v-model="volumeValue"
             :max="100"
             :step="1"

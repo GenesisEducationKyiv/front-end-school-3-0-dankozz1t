@@ -102,6 +102,7 @@ const handleImageLoadStart = (): void => {
             :alt="track.title"
             class="track-image ma-2"
             cover
+            loading="lazy"
             @error="handleImageError"
             @load="handleImageLoad"
             @loadstart="handleImageLoadStart"

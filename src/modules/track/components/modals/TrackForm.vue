@@ -139,10 +139,17 @@ const closeDialog = (): void => {
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="primary" variant="text" data-testid="cancel-form" @click="closeDialog">
+        <v-btn
+          aria-label="Cancel"
+          color="primary"
+          variant="text"
+          data-testid="cancel-form"
+          @click="closeDialog"
+        >
           Cancel
         </v-btn>
         <v-btn
+          aria-label="Submit"
           color="primary"
           data-testid="submit-button"
           :loading="loading"

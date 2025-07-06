@@ -2,7 +2,7 @@
 import { defineAsyncComponent } from 'vue';
 
 const GlobalAudioPlayer = defineAsyncComponent(
-  () => import('@/modules/player/components/GlobalAudioPlayer.vue'),
+  () => import('@/modules/player/components/GlobalAudioPlayer.vue')
 );
 </script>
 
@@ -12,9 +12,13 @@ const GlobalAudioPlayer = defineAsyncComponent(
       <v-toolbar-title> Music Manager </v-toolbar-title>
 
       <v-toolbar-items class="d-flex ga-2 align-center justify-center px-5">
-        <v-btn-group>
-          <v-btn to="/tracks" variant="outlined" color="white">Tracks REST</v-btn>
-          <v-btn to="/tracks-graphql" variant="outlined" color="white">Tracks GraphQL</v-btn>
+        <v-btn-group aria-label="Navigation buttons">
+          <v-btn aria-label="Tracks REST" to="/tracks" variant="outlined" color="white"
+            >Tracks REST</v-btn
+          >
+          <v-btn aria-label="Tracks GraphQL" to="/tracks-graphql" variant="outlined" color="white"
+            >Tracks GraphQL</v-btn
+          >
         </v-btn-group>
       </v-toolbar-items>
     </v-app-bar>
