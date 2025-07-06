@@ -7,6 +7,7 @@ import router from './router';
 import apolloClient from './services/graphql';
 
 import { createVuetify } from 'vuetify';
+import { mdiSvgIconSet, vuetifyIconAliases } from './plugins/vuetify-icons';
 import {
   VApp,
   VAppBar,
@@ -89,6 +90,13 @@ const vuetify = createVuetify({
   directives: {
     Intersect,
     Ripple,
+  },
+  icons: {
+    defaultSet: 'mdiSvg',
+    aliases: vuetifyIconAliases,
+    sets: {
+      mdiSvg: mdiSvgIconSet,
+    },
   },
 });
 

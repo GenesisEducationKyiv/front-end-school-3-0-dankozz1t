@@ -66,12 +66,6 @@ export default defineConfig(({ command, mode }) => {
           },
 
       target: 'esnext',
-      assetsInlineLimit: 4096, 
-    },
-    
-    optimizeDeps: {
-      include: ['vue', 'vue-router', 'pinia'],
-      exclude: ['@mdi/font'],
     },
   };
 });
