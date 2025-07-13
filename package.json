@@ -22,7 +22,9 @@
     "test:playwright": "playwright test --config playwright.config.ts",
     "analyze": "npm run build && npx serve dist",
     "analyze:size": "npm run build && npx vite-bundle-analyzer dist",
-    "build:report": "npm run build && open dist/bundle-report.html"
+    "build:report": "npm run build && open dist/bundle-report.html",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@apollo/client": "3.13.8",
@@ -33,16 +35,22 @@
     "axios": "1.9.0",
     "graphql": "16.11.0",
     "pinia": "3.0.3",
+    "storybook": "9.0.16",
     "vue": "3.5.16",
     "vue-router": "4.5.1",
     "vuetify": "3.8.9",
     "zod": "3.25.64"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "4.0.1",
     "@eslint/js": "9.29.0",
     "@playwright/experimental-ct-vue": "1.53.1",
     "@playwright/test": "1.53.1",
     "@rushstack/eslint-patch": "1.8.0",
+    "@storybook/addon-a11y": "9.0.16",
+    "@storybook/addon-docs": "9.0.16",
+    "@storybook/addon-onboarding": "9.0.16",
+    "@storybook/vue3-vite": "9.0.16",
     "@stylistic/eslint-plugin-ts": "2.11.0",
     "@tsconfig/node20": "20.1.4",
     "@types/node": "24.0.1",
@@ -57,6 +65,7 @@
     "autoprefixer": "10.4.20",
     "eslint": "9.29.0",
     "eslint-config-prettier": "10.1.5",
+    "eslint-plugin-storybook": "9.0.16",
     "eslint-plugin-tailwindcss": "3.18.0",
     "eslint-plugin-vue": "10.2.0",
     "jsdom": "24.1.3",

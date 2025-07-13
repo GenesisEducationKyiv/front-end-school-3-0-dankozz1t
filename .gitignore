@@ -37,3 +37,6 @@ test-results.json
 # Backend 
 _Backend_/data
 _Backend_/data-initial
+
+# Storybook
+storybook-static
