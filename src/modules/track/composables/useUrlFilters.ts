@@ -108,7 +108,7 @@ export function useUrlFilters(): UseUrlFiltersReturn {
       sortOrder: 'desc' as const,
     };
 
-    return pipe(Object.entries(filters) as Array<[keyof UrlFilters, any]>, entries =>
+    return pipe(Object.entries(filters) as Array<[keyof UrlFilters, unknown]>, entries =>
       entries.reduce(
         (acc, [key, value]) => {
           if (value === undefined || value === null || value === '') return acc;

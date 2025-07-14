@@ -7,7 +7,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import { createPinia } from 'pinia';
-import { nextTick } from 'vue';
 import TrackSearch from '../../../src/modules/track/components/TrackSearch.vue';
 import { useTrackStore } from '../../../src/modules/track/store/trackStore';
 import { createMockTrackStore, vuetifyStubs } from '../../utils/testUtils';

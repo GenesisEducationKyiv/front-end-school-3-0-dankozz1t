@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useTrackStore } from '@/modules/track/store/trackStore';
 import { useModalsPool } from '@/shared/modules/modalsPool/store/modalsPool';
 import TrackListItem from './TrackListItem.vue';
@@ -8,13 +8,6 @@ const trackStore = useTrackStore();
 const modalsStore = useModalsPool();
 
 const bulkSelectMode = ref<boolean>(false);
-
-watch(
-  () => trackStore.currentPage,
-  async () => {
-    await trackStore.fetchTracks();
-  }
-);
 
 const handleCreateTrack = (): void => {
   modalsStore.addVisibleItem('TrackForm');

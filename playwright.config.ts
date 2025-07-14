@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test';
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -8,7 +8,7 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'playwright',
+      name: 'chrome',
       testMatch: '**/tests/playwright/**/*.spec.ts',
       use: {
         ...devices['Desktop Chrome'],
@@ -19,7 +19,7 @@ export default defineConfig({
       }
     },
     {
-      name: 'mobile-playwright',
+      name: 'iphone-13',
       testMatch: '**/tests/playwright/**/*.spec.ts',
       use: {
         ...devices['iPhone 13'],
@@ -68,4 +68,4 @@ export default defineConfig({
     },
     timeout: 10_000
   }
-}) 
+}); 
