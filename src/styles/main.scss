@@ -1,0 +1,39 @@
+@import './variables';
+
+// Reset and base styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $font-size-base;
+  font-family: $font-family;
+  line-height: $line-height-base;
+}
+
+body {
+  min-height: 100vh;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #f5f5f5;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
