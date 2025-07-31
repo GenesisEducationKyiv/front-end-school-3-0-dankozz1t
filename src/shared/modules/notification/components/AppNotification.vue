@@ -16,7 +16,12 @@ const notificationStore = useNotificationStore();
     </span>
 
     <template #actions>
-      <v-btn variant="text" icon="mdi-close" @click="notificationStore.hideNotification" />
+      <v-btn
+        aria-label="Close"
+        variant="text"
+        icon="mdi-close"
+        @click="notificationStore.hideNotification"
+      />
     </template>
   </v-snackbar>
 </template>

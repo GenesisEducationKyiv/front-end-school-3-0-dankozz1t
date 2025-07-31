@@ -108,10 +108,17 @@ onBeforeUnmount(() => {
 
       <v-card-actions>
         <v-spacer />
-        <v-btn color="primary" variant="text" data-testid="cancel-upload" @click="closeDialog">
+        <v-btn
+          aria-label="Cancel"
+          color="primary"
+          variant="text"
+          data-testid="cancel-upload"
+          @click="closeDialog"
+        >
           Cancel
         </v-btn>
         <v-btn
+          aria-label="Upload"
           color="primary"
           data-testid="submit-upload"
           :loading="loading"

@@ -7,18 +7,96 @@ import router from './router';
 import apolloClient from './services/graphql';
 
 import { createVuetify } from 'vuetify';
-import * as components from 'vuetify/components';
-import * as directives from 'vuetify/directives';
-import 'vuetify/styles';
+import { mdiSvgIconSet, vuetifyIconAliases } from './plugins/vuetify-icons';
+import {
+  VApp,
+  VAppBar,
+  VMain,
+  VFooter,
+  VContainer,
+  VRow,
+  VCol,
+  VCard,
+  VCardTitle,
+  VCardText,
+  VCardActions,
+  VCardSubtitle,
+  VBtn,
+  VBtnGroup,
+  VTextField,
+  VSelect,
+  VCombobox,
+  VFileInput,
+  VForm,
+  VDialog,
+  VChip,
+  VIcon,
+  VImg,
+  VProgressCircular,
+  VProgressLinear,
+  VPagination,
+  VSpacer,
+  VToolbar,
+  VToolbarTitle,
+  VToolbarItems,
+  VSnackbar,
+  VAlert,
+  VCheckbox,
+  VSlider,
+} from 'vuetify/components';
 
-import '@mdi/font/css/materialdesignicons.css';
+import { Intersect, Ripple } from 'vuetify/directives';
+
+import 'vuetify/styles';
 import './styles/main.scss';
 
 const vuetify = createVuetify({
-  components,
-  directives,
-  theme: {
-    defaultTheme: 'light',
+  components: {
+    VApp,
+    VAppBar,
+    VMain,
+    VFooter,
+    VContainer,
+    VRow,
+    VCol,
+    VCard,
+    VCardTitle,
+    VCardText,
+    VCardActions,
+    VCardSubtitle,
+    VBtn,
+    VBtnGroup,
+    VTextField,
+    VSelect,
+    VCombobox,
+    VFileInput,
+    VForm,
+    VDialog,
+    VChip,
+    VIcon,
+    VImg,
+    VProgressCircular,
+    VProgressLinear,
+    VPagination,
+    VSpacer,
+    VToolbar,
+    VToolbarTitle,
+    VToolbarItems,
+    VSnackbar,
+    VAlert,
+    VCheckbox,
+    VSlider,
+  },
+  directives: {
+    Intersect,
+    Ripple,
+  },
+  icons: {
+    defaultSet: 'mdiSvg',
+    aliases: vuetifyIconAliases,
+    sets: {
+      mdiSvg: mdiSvgIconSet,
+    },
   },
 });
 
