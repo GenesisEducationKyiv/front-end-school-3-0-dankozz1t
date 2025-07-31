@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import GlobalAudioPlayer from '@/modules/player/components/GlobalAudioPlayer.vue';
+import { defineAsyncComponent } from 'vue';
+
+const GlobalAudioPlayer = defineAsyncComponent(
+  () => import('@/modules/player/components/GlobalAudioPlayer.vue'),
+);
 </script>
 
 <template>
