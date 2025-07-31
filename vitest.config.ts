@@ -14,6 +14,7 @@ export default defineConfig({
       '**/cypress/**',
       '**/.{idea,git,cache,output,temp}/**',
       '**/tests/playwright/**', // Exclude Playwright tests
+      '**/_BACKEND_/**',
     ],
   },
   resolve: {

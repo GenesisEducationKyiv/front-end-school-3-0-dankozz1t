@@ -73,18 +73,18 @@ const createMockTrackFormData = (overrides: Partial<TrackFormData> = {}): TrackF
 
 describe('TrackStore Integration Tests', () => {
   let pinia: ReturnType<typeof createPinia>;
-  let store: any; 
+  let store: any;
 
   beforeEach(() => {
     pinia = createPinia();
     setActivePinia(pinia);
-    
+
     const originalWarn = console.warn;
     console.warn = (message: string) => {
       if (message.includes('onBeforeUnmount')) return;
       originalWarn(message);
     };
-    
+
     store = useTrackStore() as any;
     vi.clearAllMocks();
   });
@@ -130,7 +130,7 @@ describe('TrackStore Integration Tests', () => {
       const updatedList = [createdTrack];
 
       mockTrackApi.createTrack.mockResolvedValue(createdTrack);
-      
+
       mockTrackApi.getAllTracks.mockResolvedValue({
         data: updatedList,
         meta: { total: 1, page: 1, limit: 10, totalPages: 1 },
@@ -140,7 +140,7 @@ describe('TrackStore Integration Tests', () => {
 
       expect(result).toEqual(createdTrack);
       expect(mockTrackApi.createTrack).toHaveBeenCalledWith(newTrackData);
-      expect(mockTrackApi.getAllTracks).toHaveBeenCalled(); 
+      expect(mockTrackApi.getAllTracks).toHaveBeenCalled();
       expect(store.tracks).toEqual(updatedList);
     });
 
@@ -196,11 +196,11 @@ describe('TrackStore Integration Tests', () => {
       await store.fetchTracks();
 
       expect(mockTrackApi.getAllTracks).toHaveBeenCalled();
-      
+
       const callArgs = mockTrackApi.getAllTracks.mock.calls[0][0];
-      
+
       expect(store.searchQuery).toBe(searchQuery);
-      
+
       console.log('API called with params:', callArgs);
     });
 
@@ -313,21 +313,26 @@ describe('TrackStore Integration Tests', () => {
       await store.deleteTracks(trackIds);
 
       expect(mockTrackApi.deleteTracks).toHaveBeenCalledWith(trackIds);
-      expect(store.selectedTracks).toEqual([]); 
-      expect(mockTrackApi.getAllTracks).toHaveBeenCalled(); 
+      expect(store.selectedTracks).toEqual([]);
+      expect(mockTrackApi.getAllTracks).toHaveBeenCalled();
     });
   });
 
   describe('Error Handling Integration', () => {
     it('should handle API errors during fetch', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const apiError = new Error('Network error');
       mockTrackApi.getAllTracks.mockRejectedValue(apiError);
 
       await expect(store.fetchTracks()).rejects.toThrow('Network error');
       expect(store.loading).toBe(false);
+      expect(consoleSpy).toHaveBeenCalledWith('Error fetching tracks:', apiError);
+
+      consoleSpy.mockRestore();
     });
 
     it('should handle errors during create operations', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const trackData = createMockTrackFormData();
       const apiError = new Error('Validation error');
 
@@ -335,6 +340,9 @@ describe('TrackStore Integration Tests', () => {
 
       await expect(store.createTrack(trackData)).rejects.toThrow('Validation error');
       expect(store.loading).toBe(false);
+      expect(consoleSpy).toHaveBeenCalledWith('Error creating track:', apiError);
+
+      consoleSpy.mockRestore();
     });
   });
 
@@ -343,7 +351,7 @@ describe('TrackStore Integration Tests', () => {
       store.totalTracks = 85;
       store.updateItemsPerPage(20);
 
-      expect(store.totalPages).toBe(5); 
+      expect(store.totalPages).toBe(5);
     });
 
     it('should handle empty results correctly', () => {
