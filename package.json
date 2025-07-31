@@ -22,8 +22,11 @@
     "test:playwright": "playwright test --config playwright.config.ts"
   },
   "dependencies": {
+    "@apollo/client": "3.13.8",
     "@mobily/ts-belt": "3.13.1",
+    "@vue/apollo-composable": "4.2.2",
     "axios": "1.9.0",
+    "graphql": "16.11.0",
     "pinia": "3.0.3",
     "vue": "3.5.16",
     "vue-router": "4.5.1",

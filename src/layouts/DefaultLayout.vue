@@ -5,8 +5,14 @@ import GlobalAudioPlayer from '@/modules/player/components/GlobalAudioPlayer.vue
 <template>
   <v-app>
     <v-app-bar app color="primary" dark>
-      <v-toolbar-title>Music Manager</v-toolbar-title>
-      <v-spacer />
+      <v-toolbar-title> Music Manager </v-toolbar-title>
+
+      <v-toolbar-items class="d-flex ga-2 align-center justify-center px-5">
+        <v-btn-group>
+          <v-btn to="/tracks" variant="outlined" color="white">Tracks REST</v-btn>
+          <v-btn to="/tracks-graphql" variant="outlined" color="white">Tracks GraphQL</v-btn>
+        </v-btn-group>
+      </v-toolbar-items>
     </v-app-bar>
 
     <v-main>
